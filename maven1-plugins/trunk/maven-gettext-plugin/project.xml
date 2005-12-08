@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+/*
+ * Copyright 2001-2004 The Apache Software Foundation.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+<project>
+  <extend>../../../xnap-commons/shared-project.xml</extend>
+
+  <pomVersion>3</pomVersion>
+  <groupId>xnap-commons</groupId>
+  <artifactId>maven-gettext-plugin</artifactId>
+  <name>Maven gettext Plugin</name>
+  <currentVersion>1.0-SNAPSHOT</currentVersion>
+  <description/>
+  <shortDescription></shortDescription>
+
+  <siteDirectory>/home/groups/x/xn/xnap-cmmons/htdocs/maven-gettext-plugin/</siteDirectory>
+
+  <repository>
+    <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/xnap-commons:maven-plugins/m1/maven-gettext-plugin</connection>
+    <developerConnection>scm:cvs:ext:${maven.username}@cvs.sf.net:/cvsroot/xnap-commons:maven-plugins/m1/maven-gettext-plugin</developerConnection>
+    <url>http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/xnap-commons/maven-plugins/m1/maven-gettext-plugin/</url>
+  </repository>
+
+  <versions>
+    <version>
+      <id>1.0</id>
+      <name>1.0</name>
+      <tag>maven-statcvs-plugin-1_0</tag>
+    </version>
+  </versions> 
+
+  <developers>
+    <developer>
+      <name>Steffen Pingel</name>
+      <id>squig</id>
+      <roles>
+        <role>Project Manager</role>
+        <role>Developer</role>
+        <role>Creator</role>
+      </roles>
+      <url>http://steffenpingel.de</url>
+      <timezone>+2</timezone>
+    </developer>
+  </developers>
+
+  <build>
+    <resources>
+      <resource>
+        <directory>${basedir}/src/plugin-resources</directory>
+        <targetPath>plugin-resources</targetPath>
+      </resource>
+      <resource>
+        <directory>${basedir}</directory>
+        <includes>
+          <include>plugin.jelly</include>
+          <include>plugin.properties</include>
+          <include>project.properties</include>
+          <include>project.xml</include>
+        </includes>
+      </resource>
+    </resources>
+  </build>
+
+  <reports>
+    <report>maven-changes-plugin</report>
+  </reports>
+</project>
