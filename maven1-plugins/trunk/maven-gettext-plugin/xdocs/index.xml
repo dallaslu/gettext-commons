@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+  <properties>
+    <title>Maven Gettext Plugin</title>
+  </properties>
+  <body>
+    <section name="Maven Gettext Plugin">
+      <p>A plugin to integrate gettext tools into a Maven build.</p>
+
+    </section>
+
+    <section name="Installation">
+      <p>There are three <b>alternative</b> ways to install the
+      plugin. <b>Choose one.</b></p>
+
+      <ul>
+		<li>The easiest way to install the gettext plugin is through
+      Maven:
+
+<source>maven plugin:download -DartifactId=maven-gettext-plugin -DgroupId=xnap-commons -Dversion=1.0</source></li>
+
+      <li>Or add a dependency to your project.xml:
+
+<source><![CDATA[<dependency>
+  <groupId>xnap-commons</groupId>
+  <artifactId>xnap-commons-plugin</artifactId>
+  <version>1.0</version>
+  <type>plugin</type>
+</dependency>]]></source></li>
+
+      </ul>
+    </section>
+	  
+    <section name="Usage">
+      <subsection name="Expected Project Layout">
+	  <p></p>
+<source>+ po
+          - keys.pot
+          - de.po
+          - en.po
++ src
+  + java
+</source>
+      </subsection>
+
+      <subsection name="Build process integration">
+<source>
+</source>
+      </subsection>
+    </section>
+  </body>
+</document>

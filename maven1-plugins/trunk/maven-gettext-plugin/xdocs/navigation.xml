@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="Maven Gettext Plugin">
+  <title>Maven Gettext Plugin</title>
+  <body>
+    <links>
+      <item href="http://xnap-commons.sf.net/" name="XNap-Commons"/>
+      <item href="http://maven.apache.org/" name="Maven"/>
+    </links>
+    <menu name="Overview">
+      <item href="/goals.html" name="Goals"/>
+      <item href="/properties.html" name="Properties"/>
+    </menu>
+  </body>
+</project>

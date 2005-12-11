@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project>
-  <extend>../../../xnap-commons/shared-project.xml</extend>
+  <extend>../../../shared/m1-project.xml</extend>
 
   <pomVersion>3</pomVersion>
   <groupId>xnap-commons</groupId>
@@ -11,7 +11,7 @@
   <description/>
   <shortDescription></shortDescription>
 
-  <siteDirectory>/home/groups/x/xn/xnap-cmmons/htdocs/maven-gettext-plugin/</siteDirectory>
+  <siteDirectory>/home/groups/x/xn/xnap-commons/htdocs/m1/maven-gettext-plugin/</siteDirectory>
 
   <repository>
     <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/xnap-commons:maven-plugins/m1/maven-gettext-plugin</connection>
