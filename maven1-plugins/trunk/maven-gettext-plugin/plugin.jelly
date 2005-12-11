@@ -2,7 +2,9 @@
 
 <!-- 
 /*
- * Copyright 2001-2004 The Apache Software Foundation.
+ * Maven Gettext Plugin
+ *
+ * Copyright 2005 Steffen Pingel
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,27 +25,37 @@
   xmlns:util="jelly:util"
   xmlns:ant="jelly:ant"
   xmlns:doc="doc">
+
+  <!--==================================================================-->
+  <!-- Default goal that invokes gettext:merge and gettext:dist         -->
+  <!--==================================================================-->
+  <goal name="gettext">
+    <attainGoal name="gettext:merge"/>
+	<attainGoal name="gettext:dist"/>
+  </goal>
   
   <!--==================================================================-->
   <!-- Calls xgettext                                                   -->
   <!--==================================================================-->
   <goal name="gettext:gettext">
-	<ant:fileset dir="${gettext.input}" id="sources.files">
-	  <ant:include name="**/*.java"/>
-	</ant:fileset>
+    <ant:fileScanner var="files">
+	  <ant:fileset dir="${gettext.input}" id="sources.files">
+	    <ant:include name="**/*.java"/>
+	  </ant:fileset>
+	</ant:fileScanner>
 
-	<ant:pathconvert pathsep=" " property="sources.arg" refid="sources.files"/>
-
-	<ant:echo>Invoking gettext</ant:echo>
+	<ant:echo>Invoking xgettext for Java files in '${gettext.input}'</ant:echo>
 	<ant:exec
-	  executable="xgettext">
+	  executable="${gettext.xgettext}">
 	  <!-- failonerror="true"/> -->
 	  <ant:arg value="--from-code=${gettext.encoding}"/>
       <ant:arg value="--output=${gettext.keys}"/>
       <ant:arg value="--language=Java"/>
 	  <ant:arg value="--directory=${gettext.input}"/>
 	  <ant:arg line="${gettext.keywords}"/>
-	  <ant:arg line="${sources.arg}"/>
+	  <j:forEach var="file" items="${files.iterator()}">
+	    <ant:arg value="${file}"/>
+	  </j:forEach>
     </ant:exec>
   </goal>
 
@@ -51,12 +63,23 @@
   <!-- Calls msgmerge                                                   -->
   <!--==================================================================-->
   <goal name="gettext:merge" prereqs="gettext:gettext">
-	<ant:fileset dir="${gettext.popath}" id="files">
-	  <ant:include name="**/*.po"/>
-	</ant:fileset>
+    <ant:fileScanner var="files">
+	  <ant:fileset dir="${gettext.popath}">
+	    <ant:include name="**/*.po"/>
+	  </ant:fileset>
+	</ant:fileScanner>
 
-    <j:forEach var="file" items="${files}">
-	  <ant:echo>po: ${file}</ant:echo>	  
+	<ant:echo>Invoking msgmerge for po files in '${gettext.popath}'</ant:echo>
+	<j:forEach var="file" items="${files.iterator()}">
+	  <ant:exec
+	    executable="${gettext.msgmerge}">
+	    <!-- failonerror="true"/> -->
+        <ant:arg value="-q"/>
+	    <ant:arg value="--backup=numbered"/>
+        <ant:arg value="-U"/>
+	    <ant:arg line="${gettext.keys}"/>
+	    <ant:arg line="${file}"/>
+      </ant:exec>
 	</j:forEach>
   </goal>
 
@@ -64,6 +87,81 @@
   <!-- Calls msgfmt or mgscat                                           -->
   <!--==================================================================-->
   <goal name="gettext:dist">
+    <j:set var="outputformat" value="${gettext.outputformat}"/>
+    <j:choose>
+	  <j:when test="${outputformat == 'class'}">
+	    <attainGoal name="gettext:dist-msgfmt"/>
+      </j:when>
+	  <j:otherwise>
+	    <attainGoal name="gettext:dist-msgcat"/>
+	  </j:otherwise>
+    </j:choose>
+  </goal>
+
+  <!--==================================================================-->
+  <!-- Calls msgfmt                                                     -->
+  <!--==================================================================-->
+  <goal name="gettext:dist-msgfmt">
+    <ant:fileScanner var="files">
+	  <ant:fileset dir="${gettext.popath}">
+	    <ant:include name="**/*.po"/>
+	  </ant:fileset>
+	</ant:fileScanner>
+
+	<ant:echo>Invoking msgfmt for po files in '${gettext.popath}'</ant:echo>
+    <j:set var="javaversion" value="${gettext.javaversion}"/>
+	<j:forEach var="file" items="${files.iterator()}">
+      <j:set var="index" value="${file.name.lastIndexOf('.')}"/>
+      <j:set var="basename" value="${file.name.substring(0,index)}"/>
+	  <ant:exec
+	    executable="${gettext.msgfmt}">
+	    <!-- failonerror="true"/> -->
+		<j:choose>
+  		  <j:when test="${javaversion == 2}">
+		    <ant:arg value="--java2"/>
+          </j:when>
+		  <j:otherwise>
+		    <ant:arg value="--java"/>
+		  </j:otherwise>
+        </j:choose>
+        <ant:arg value="-d"/>
+	    <ant:arg value="${gettext.output}"/>
+	    <ant:arg value="-r"/>
+	    <ant:arg value="${gettext.package}"/>
+	    <ant:arg value="-l"/>
+	    <ant:arg value="${basename}"/>
+	    <ant:arg value="${file}"/>
+      </ant:exec>
+	</j:forEach>
+  </goal>
+
+  <!--==================================================================-->
+  <!-- Calls msgcat                                                     -->
+  <!--==================================================================-->
+  <goal name="gettext:dist-msgcat">
+    <ant:fileScanner var="files">
+	  <ant:fileset dir="${gettext.popath}">
+	    <ant:include name="**/*.po"/>
+	  </ant:fileset>
+	</ant:fileScanner>
+
+	<ant:echo>Invoking msgfmt for po files '${gettext.popath}'</ant:echo>
+    <j:set var="javaversion" value="${gettext.javaversion}"/>
+	<j:forEach var="file" items="${files.iterator()}">
+      <j:set var="index" value="${file.name.lastIndexOf('.')}"/>
+      <j:set var="basename" value="${file.name.substring(0,index)}"/>
+      <j:set var="package" value="${gettext.package}"/>
+      <j:set var="basepath" value="${package.replace('.', '/')}"/>
+      <util:file var="target" name="${gettext.output}/${basepath}_${basename}.properties"/>
+	  <ant:exec
+	    executable="${gettext.msgcat}">
+	    <!-- failonerror="true"/> -->
+	    <ant:arg value="-p"/>
+	    <ant:arg value="${file}"/>
+        <ant:arg value="-o"/>
+	    <ant:arg value="${target}"/>
+      </ant:exec>
+	</j:forEach>
   </goal>
 
 </project>
