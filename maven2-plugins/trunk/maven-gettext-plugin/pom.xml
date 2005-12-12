@@ -5,8 +5,8 @@
   <artifactId>maven-gettext-plugin</artifactId>
   <packaging>maven-plugin</packaging>
   <version>1.0-SNAPSHOT</version>
-  <name>Maven gettext Plugin</name>
-  <url>http://maven.apache.org</url>
+  <name>Maven Gettext Plugin</name>
+  <url>http://xnap-commons.sf.net</url>
   <developers>
     <developer>
       <id>vanto</id>
@@ -18,6 +18,15 @@
 		  <role>Developer</role> 
 		  <role>Creator</role> 
 	  </roles>
+    </developer>
+	<developer>
+      <id>squig</id>
+      <name>Steffen Pingel</name>
+      <url>http://steffenpingel.de</url>
+      <organization>XNap Commons Team</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
     </developer>
   </developers>
   <dependencies>
@@ -47,6 +56,16 @@
       <artifactId>plexus-utils</artifactId>
 	  <version>1.0.5</version>
     </dependency> -->
+	<dependency>
+      <groupId>org.apache.maven.reporting</groupId>
+      <artifactId>maven-reporting-api</artifactId>
+      <version>2.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven.reporting</groupId>
+      <artifactId>maven-reporting-impl</artifactId>
+      <version>2.0</version>
+    </dependency>
   </dependencies>
   <scm>
     <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/xnap-commons:maven-plugins/m2/maven-gettext-plugin</connection>
