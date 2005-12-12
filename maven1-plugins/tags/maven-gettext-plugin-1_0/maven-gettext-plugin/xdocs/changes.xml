@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+
+<document>
+  <properties>
+    <title>Changes</title>
+    <author>Steffen Pingel</author>
+  </properties>
+
+  <body>
+	<release version="1.0" date="2005-12-11">
+      <action dev="squig" type="">
+	    First release.
+      </action>
+    </release>
+  </body>
+</document>

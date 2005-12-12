@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+  <properties>
+    <title>Goals</title>
+    <author>Steffen Pingel</author>
+  </properties>
+  <body>
+    <goals>
+      <goal>
+        <name>gettext</name>
+        <description>
+		  Invokes the <code>gettext:merge</code> and
+		  <code>gettext:dist</code> goal.
+        </description>
+      </goal>
+      <goal>
+        <name>gettext:gettext</name>
+        <description>
+		  Invokes <code>xgettext</code> to extract keys from source
+		  code. 
+        </description>
+      </goal>
+      <goal>
+        <name>gettext:merge</name>
+        <description>
+          Invokes the <code>gettext:gettext</code> goal and invokes 
+		  <code>msgmerge</code> to update po files.
+        </description>
+      </goal>
+      <goal>
+        <name>gettext:dist</name>
+        <description>
+          Generates ressource bundles. Invokes the 
+		  <code>gettext:dist-msgcat</code> or 
+		  <code>gettext:dist-msgfmt</code> goal depending on 
+		  <code>${gettext.outputformat}</code>.
+        </description>
+      </goal>
+      <goal>
+        <name>gettext:dist-msgcat</name>
+        <description>
+          Invokes <code>msgcat</code> to generate Java property
+		  files.
+        </description>
+      </goal>
+      <goal>
+        <name>gettext:dist-msgfmt</name>
+        <description>
+          Invokes <code>msgfmt</code> to generate Java class files. 
+        </description>
+      </goal>
+    </goals>
+<!--
+    <section name="Automatic report generation">
+      <p>
+        In order to automaticall generate gettext statistics reports
+        when you generate your project's web site with <code>maven
+        site</code>, add the following to your
+        <code>project.xml</code>:
+      </p>
+<source><![CDATA[
+  <reports>
+    [...]
+    <report>maven-gettext-plugin</report>
+    [...]
+  </reports>
+]]></source>
+    </section>
+-->
+  </body>
+</document>

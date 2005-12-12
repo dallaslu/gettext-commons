@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+  <properties>
+    <title>Properties</title>
+    <author>Steffen Pingel</author>
+  </properties>
+  <body>
+    <section name="Maven Gettext Plugin Properties">
+      <table>
+        <tr>
+          <th>Property</th>
+          <th>Optional?</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>getext.encoding</td>
+          <td>true</td>
+          <td>
+            Default value is <code>UTF-8</code>. Specifies the
+			encoding of the source code. 
+          </td>
+        </tr>
+        <tr>
+          <td>gettext.javaVersion</td>
+          <td>true</td>
+          <td>
+            Default value is <code>2</code>. Specifies the Java
+			compatibility version of generated class files. If value
+			is <code>1</code> generated files will be Java 1.1
+			compatibel, otherwise generated code will require Java 1.2
+			or higher.
+          </td>
+        </tr>
+        <tr>
+          <td>gettext.keysFile</td>
+          <td>true</td>
+          <td>
+            Default is <code>${gettext.poDirectory}/keys.pot</code>. 
+			Specifies the path of the po template file.
+          </td>
+        </tr>
+        <tr>
+          <td>gettext.keywords</td>
+          <td>true</td>
+          <td>
+            Default is <code>-ktrc -ktr -kmarktr -ktrn:1,2</code>. 
+			Specifies the gettext parameters for key lookup.
+          </td>
+        </tr>
+        <tr>
+          <td>gettext.msgcat</td>
+          <td>true</td>
+          <td>
+            Default is <code>msgcat</code>. Specifies the name of the
+			msgcat program.
+          </td>
+        </tr>
+        <tr>
+          <td>gettext.msgfmt</td>
+          <td>true</td>
+          <td>
+            Default is <code>msgfmt</code>. Specifies the name of the
+			msgfmt program.
+          </td>
+        </tr>
+        <tr>
+          <td>gettext.msgmerge</td>
+          <td>true</td>
+          <td>
+            Default is <code>msgmerge</code>. Specifies the name of the
+			msgmerge program.
+          </td>
+        </tr>
+        <tr>
+          <td>gettext.outputDiretory</td>
+          <td>true</td>
+          <td>
+            Default is <code>${maven.build.dest}</code>. Specifies the 
+			path of the target directory.
+          </td>
+        </tr>
+        <tr>
+          <td>gettext.outputFormat</td>
+          <td>true</td>
+          <td>
+            Default is <code>class</code>. 
+          </td>
+        </tr>
+        <tr>
+          <td>gettext.package</td>
+          <td>true</td>
+          <td>
+            Default is <code>${pom.package}.i18n.Messages</code>. 
+			Specifies target package for generated files. 
+          </td>
+        </tr>
+        <tr>
+          <td>gettext.poDirectory</td>
+          <td>true</td>
+          <td>
+            Default is <code>${basedir}/po</code>. Specifies the path that is
+			searched for po files.
+          </td>
+        </tr>
+        <tr>
+          <td>gettext.sourceDirectory</td>
+          <td>true</td>
+          <td>
+            Default value is
+			<code>${pom.build.sourceDirectory}</code>. Specifies the 
+			directory that is searched for Java files.
+          </td>
+        </tr>
+        <tr>
+          <td>gettext.sourceLocale</td>
+          <td>true</td>
+          <td>
+            Default value is <code>en</code>. Specifies the locale of
+            the source code. An empty resource is generated for the
+            source locale.
+          </td>
+        </tr>
+        <tr>
+          <td>gettext.xgettext</td>
+          <td>true</td>
+          <td>
+            Default is <code>xgettext</code>. Specifies the name of the
+			xgettext program.
+          </td>
+        </tr>
+     </table>
+    </section>
+  </body>
+</document>
