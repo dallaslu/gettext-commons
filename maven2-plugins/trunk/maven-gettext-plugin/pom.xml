@@ -101,7 +101,7 @@
     <site>
       <id>default</id>
       <name>Default Site</name>
-      <url>scp://shell.sf.net//home/groups/x/xn/xnap-commons/htdocs/m2/maven-gettext-plugin/</url>
+      <url>scp://shell.sf.net/home/groups/x/xn/xnap-commons/htdocs/m2/maven-gettext-plugin/</url>
     </site>
   </distributionManagement>
   <reporting>
