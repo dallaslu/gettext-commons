@@ -77,8 +77,8 @@
         <ant:arg value="-q"/>
 	    <ant:arg value="--backup=numbered"/>
         <ant:arg value="-U"/>
-	    <ant:arg line="${gettext.keys}"/>
-	    <ant:arg line="${file}"/>
+	    <ant:arg value="${gettext.keys}"/>
+	    <ant:arg value="${file}"/>
       </ant:exec>
 	</j:forEach>
   </goal>
