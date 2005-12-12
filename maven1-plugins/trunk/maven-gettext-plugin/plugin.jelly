@@ -133,7 +133,7 @@
 		  </j:otherwise>
         </j:choose>
         <ant:arg value="-d"/>
-	    <ant:arg value="${gettext.outputDiretory}"/>
+	    <ant:arg value="${gettext.outputDirectory}"/>
 	    <ant:arg value="-r"/>
 	    <ant:arg value="${gettext.package}"/>
 	    <ant:arg value="-l"/>
@@ -153,10 +153,11 @@
 	<j:forEach var="file" items="${files.iterator()}">
       <j:set var="index" value="${file.name.lastIndexOf('.')}"/>
       <j:set var="basename" value="${file.name.substring(0,index)}"/>
-      <util:file var="target" name="${gettext.outputDiretory}/${basepath}_${basename}.properties"/>
+      <util:file var="target" name="${gettext.outputDirectory}/${basepath}_${basename}.properties"/>
 	  <ant:exec
 	    executable="${gettext.msgcat}">
 	    <!-- failonerror="true"/> -->
+        <ant:arg value="--no-location"/>
 	    <ant:arg value="-p"/>
 	    <ant:arg value="${file}"/>
         <ant:arg value="-o"/>
@@ -171,13 +172,13 @@
   <!-- Creates the source code locale bundle                            -->
   <!--==================================================================-->
   <goal name="gettext:create-source-code-bundle">
-	<util:file var="resourceFile" name="${gettext.outputDiretory}/${basepath}_${gettext.sourceLocale}.properties"/>
+	<util:file var="resourceFile" name="${gettext.outputDirectory}/${basepath}_${gettext.sourceLocale}.properties"/>
 	<ant:echo>Creating resource bundle for source locale</ant:echo>
 	<j:if test="${!resourceFile.exists()}">
 	  <j:expr value="${resourceFile.createNewFile()}"/>
     </j:if>
 
-	<util:file var="resourceFile" name="${gettext.outputDiretory}/${basepath}.properties"/>
+	<util:file var="resourceFile" name="${gettext.outputDirectory}/${basepath}.properties"/>
 	<ant:echo>Creating default resource bundle</ant:echo>
 	<j:if test="${!resourceFile.exists()}">
 	  <j:expr value="${resourceFile.createNewFile()}"/>
