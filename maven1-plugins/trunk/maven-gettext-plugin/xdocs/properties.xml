@@ -96,7 +96,7 @@
           </td>
         </tr>
         <tr>
-          <td>gettext.popath</td>
+          <td>gettext.poDirectory</td>
           <td>true</td>
           <td>
             Default is <code>${basedir}/po</code>. Specifies the path that is
