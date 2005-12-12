@@ -149,7 +149,7 @@
   <!-- Calls msgcat                                                     -->
   <!--==================================================================-->
   <goal name="gettext:dist-msgcat" prereqs="gettext:prepare-dist">
-	<ant:echo>Invoking msgfmt for po files '${gettext.poDirectory}'</ant:echo>
+	<ant:echo>Invoking msgcat for po files '${gettext.poDirectory}'</ant:echo>
 	<j:forEach var="file" items="${files.iterator()}">
       <j:set var="index" value="${file.name.lastIndexOf('.')}"/>
       <j:set var="basename" value="${file.name.substring(0,index)}"/>
