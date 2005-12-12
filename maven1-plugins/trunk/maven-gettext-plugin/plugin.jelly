@@ -51,7 +51,6 @@
 	  <ant:arg value="--from-code=${gettext.encoding}"/>
       <ant:arg value="--output=${gettext.keysFile}"/>
       <ant:arg value="--language=Java"/>
-	  <ant:arg value="--directory=${gettext.sourceDirectory}"/>
 	  <ant:arg line="${gettext.keywords}"/>
 	  <j:forEach var="file" items="${files.iterator()}">
 	    <ant:arg value="${file}"/>
