@@ -22,7 +22,7 @@
           </td>
         </tr>
         <tr>
-          <td>gettext.input</td>
+          <td>gettext.sourceDirectory</td>
           <td>true</td>
           <td>
             Default value is
@@ -31,7 +31,16 @@
           </td>
         </tr>
         <tr>
-          <td>gettext.javaversion</td>
+          <td>gettext.sourceLocale</td>
+          <td>true</td>
+          <td>
+            Default value is <code>en</code>. Specifies the locale of
+            the source code. An empty resource is generated for the
+            source locale.
+          </td>
+        </tr>
+        <tr>
+          <td>gettext.javaVersion</td>
           <td>true</td>
           <td>
             Default value is <code>2</code>. Specifies the Java
@@ -42,7 +51,15 @@
           </td>
         </tr>
         <tr>
-          <td>gettext.keys</td>
+          <td>gettext.keysFile</td>
+          <td>true</td>
+          <td>
+            Default is <code>${gettext.poDirectory}/keys.pot</code>. 
+			Specifies the path of the po template file.
+          </td>
+        </tr>
+        <tr>
+          <td>gettext.keywords</td>
           <td>true</td>
           <td>
             Default is <code>-ktrc -ktr -kmarktr -ktrn:1,2</code>. 
@@ -82,7 +99,7 @@
           </td>
         </tr>
         <tr>
-          <td>gettext.output</td>
+          <td>gettext.outputDiretory</td>
           <td>true</td>
           <td>
             Default is <code>${maven.build.dest}</code>. Specifies the 
@@ -90,7 +107,7 @@
           </td>
         </tr>
         <tr>
-          <td>gettext.outputformat</td>
+          <td>gettext.outputFormat</td>
           <td>true</td>
           <td>
             Default is <code>class</code>. 
