@@ -21,7 +21,6 @@ import java.io.File;
 import org.apache.maven.plugin.AbstractMojo;
 
 /**
- * Goal which touches a timestamp file.
  *
  */
 public abstract class AbstractGettextMojo

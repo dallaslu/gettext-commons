@@ -26,7 +26,7 @@ import org.codehaus.plexus.util.cli.Commandline;
 import org.codehaus.plexus.util.cli.StreamConsumer;
 
 /**
- * Goal which touches a timestamp file.
+ * Invokes xgettext to extract keys from source code.
  *
  * @goal gettext
  * 

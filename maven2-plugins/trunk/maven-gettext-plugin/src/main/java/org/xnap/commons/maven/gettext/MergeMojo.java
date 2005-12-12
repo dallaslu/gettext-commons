@@ -26,11 +26,12 @@ import org.codehaus.plexus.util.cli.Commandline;
 import org.codehaus.plexus.util.cli.StreamConsumer;
 
 /**
- * Goal which touches a timestamp file.
+ * Invokes the gettext:gettext goal and invokes msgmerge to update po files.
  *
  * @goal merge
- * 
+ * @execute goal="gettext"
  * @phase generate-resources
+ * @author Tammo van Lessen
  */
 public class MergeMojo
     extends AbstractGettextMojo {

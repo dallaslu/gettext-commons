@@ -27,11 +27,11 @@ import org.codehaus.plexus.util.cli.Commandline;
 import org.codehaus.plexus.util.cli.StreamConsumer;
 
 /**
- * Goal which touches a timestamp file.
+ * Generates ressource bundles.
  *
  * @goal dist
- * 
  * @phase generate-resources
+ * @author Tammo van Lessen
  */
 public class DistMojo
     extends AbstractGettextMojo {
