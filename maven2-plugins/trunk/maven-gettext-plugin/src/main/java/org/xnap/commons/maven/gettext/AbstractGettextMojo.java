@@ -19,8 +19,6 @@ package org.xnap.commons.maven.gettext;
 import java.io.File;
 
 import org.apache.maven.plugin.AbstractMojo;
-import org.apache.maven.plugin.MojoExecutionException;
-import org.codehaus.plexus.util.cli.Commandline;
 
 /**
  * Goal which touches a timestamp file.
@@ -29,24 +27,49 @@ import org.codehaus.plexus.util.cli.Commandline;
 public abstract class AbstractGettextMojo
     extends AbstractMojo {
 	
-    /**
-     * Output directory.
-     * @parameter expression="${project.build.directory}"
+	
+	/**
+     * @description Output directory.
+     * @parameter expression="${outputDirectory}" default-value="${project.build.outputDirectory}"
      * @required
      */
-    private File outputDirectory;
+    protected File outputDirectory;
 
-    private File inputDirectory;
+    /**
+     * @description Source directory.
+     * @parameter expression="${sourceDirectory}" default-value="${project.build.sourceDirectory}"
+     * @required
+     */
+    protected File sourceDirectory;
     
-    private File poDirectory;
+    /**
+     * PO directory.
+     * @parameter expression="${poDirectory}" default-value="${project.build.sourceDirectory}/main/po"
+     * @required
+     */
+    protected File poDirectory;
     
-    private String javaVersion;
-    private File keys;
-    private String keywords;
-    private String msgcatCmd;
-    private String msgfmtCmd;
-    private String xgettextCmd;
-    private String outputFormat;
-    private String targetPackage;
-   
+    /**
+     * Java version.
+     * Can be "1" or "2".
+     * @parameter expression="${javaVersion}" default-value="2"
+     * @required
+     */
+    protected String javaVersion;
+
+    /**
+     * Filename of the .pot file.2
+     * @parameter expression="${keysFile}" default-value="${poDirectory}/keys.pot"
+     * @required
+     */
+    protected File keysFile;
+    
+    
+    /**
+     * @parameter expression="${sourceLocale}" default-value="EN"
+     * @required
+     */
+    protected String sourceLocale;
+    
+    
 }

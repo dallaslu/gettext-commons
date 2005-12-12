@@ -16,22 +16,82 @@ package org.xnap.commons.maven.gettext;
  * limitations under the License.
  */
 
+import java.io.File;
+import java.io.StringWriter;
+import java.io.Writer;
+
 import org.apache.maven.plugin.MojoExecutionException;
+import org.codehaus.plexus.util.DirectoryScanner;
+import org.codehaus.plexus.util.cli.CommandLineException;
+import org.codehaus.plexus.util.cli.CommandLineUtils;
+import org.codehaus.plexus.util.cli.Commandline;
+import org.codehaus.plexus.util.cli.StreamConsumer;
+import org.codehaus.plexus.util.cli.WriterStreamConsumer;
 
 /**
  * Goal which touches a timestamp file.
  *
  * @goal gettext
  * 
- * @phase process-sources
+ * @phase generate-resources
  */
 public class GettextMojo
-    extends AbstractGettextMojo
-{
+    extends AbstractGettextMojo {
+	
+    /**
+     * @description Source Encoding.
+     * @parameter expression="${encoding} default-value="utf-8" 
+     */
+	protected String encoding;
+	
+    /**
+     * @description Gettext keywords (see -k in help for details).
+     * @parameter expression="${keywords}" default-value="-ktrc -ktr -kmarktr -ktrn:1,2"
+     * @required
+     */
+    protected String keywords;
+    
+    /**
+     * @description xgettext command.
+     * @parameter expression="${xgettextCmd}" default-value="xgettext"
+     * @required 
+     */
+    protected String xgettextCmd;
+
+
 
 	public void execute()
         throws MojoExecutionException
     {
-    	//TODO
+		getLog().info("Invoking xgettext for Java files in '" 
+				+ sourceDirectory.getAbsolutePath() + "'.");
+		
+		Commandline cl = new Commandline();
+		cl.setExecutable(xgettextCmd);
+    	cl.createArgument().setValue("--from-code=" + encoding);
+    	cl.createArgument().setValue("--output=" + keysFile.getAbsolutePath());
+    	cl.createArgument().setValue("--language=Java");
+    	cl.createArgument().setValue("--directory=" + sourceDirectory);
+    	cl.createArgument().setLine(keywords);
+    	
+    	DirectoryScanner ds = new DirectoryScanner();
+    	ds.setBasedir(sourceDirectory);
+    	ds.setIncludes(new String[] {"**/*.java"});
+    	ds.scan();
+    	String[] files = ds.getIncludedFiles();
+    	for (int i = 0; i < files.length; i++) {
+    		cl.createArgument().setValue(sourceDirectory.getAbsolutePath() 
+    				+ File.separator +  files[i]);
+    	}
+    	
+    	Writer stringWriter = new StringWriter();
+		StreamConsumer out = new WriterStreamConsumer(stringWriter);
+		StreamConsumer err = new WriterStreamConsumer(stringWriter);
+    	try {
+			CommandLineUtils.executeCommandLine(cl, out, err);
+			getLog().info(stringWriter.toString());
+		} catch (CommandLineException e) {
+			getLog().error("Could not execute xgettext.", e);
+		}
     }
 }

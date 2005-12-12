@@ -33,10 +33,15 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>plexus</groupId>
+      <groupId>org.codehaus.plexus</groupId>
       <artifactId>plexus-utils</artifactId>
-	  <version>1.0.1</version>
+	  <version>1.0.5</version>
     </dependency>    
+    <!-- <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-utils</artifactId>
+	  <version>1.0.5</version>
+    </dependency> -->
     <!-- <dependency>
       <groupId>org.codehaus.plexus</groupId>
       <artifactId>plexus-utils</artifactId>
