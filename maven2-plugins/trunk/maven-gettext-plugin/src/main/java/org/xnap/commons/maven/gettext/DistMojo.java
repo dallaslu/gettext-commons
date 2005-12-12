@@ -73,7 +73,7 @@ public class DistMojo
     protected String javaVersion;
 
     /**
-     * @parameter expression="${sourceLocale}" default-value="EN"
+     * @parameter expression="${sourceLocale}" default-value="en"
      * @required
      */
     protected String sourceLocale;
@@ -98,10 +98,13 @@ public class DistMojo
     	String[] files = ds.getIncludedFiles();
     	for (int i = 0; i < files.length; i++) {
     		getLog().info("Processing " + files[i]);
+    		
+        	Commandline cl = cf.createCommandline(new File(poDirectory, files[i]));
+    		getLog().debug("Executing: " + cl.toString());
     		StreamConsumer out = new LoggerStreamConsumer(getLog(), LoggerStreamConsumer.INFO);
     		StreamConsumer err = new LoggerStreamConsumer(getLog(), LoggerStreamConsumer.WARN);
         	try {
-    			CommandLineUtils.executeCommandLine(cf.createCommandline(new File(poDirectory, files[i])), out, err);
+    			CommandLineUtils.executeCommandLine(cl, out, err);
     		} catch (CommandLineException e) {
     			getLog().error("Could not execute xgettext.", e);
     		}
@@ -123,6 +126,7 @@ public class DistMojo
 			}
     	}
     }
+    
     private interface CommandlineFactory {
     	Commandline createCommandline(File file);
     }

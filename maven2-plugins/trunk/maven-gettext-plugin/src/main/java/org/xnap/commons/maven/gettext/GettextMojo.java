@@ -81,7 +81,6 @@ public class GettextMojo
     	}
     	
     	getLog().debug("Executing: " + cl.toString());
-    	
 		StreamConsumer out = new LoggerStreamConsumer(getLog(), LoggerStreamConsumer.INFO);
 		StreamConsumer err = new LoggerStreamConsumer(getLog(), LoggerStreamConsumer.WARN);
     	try {

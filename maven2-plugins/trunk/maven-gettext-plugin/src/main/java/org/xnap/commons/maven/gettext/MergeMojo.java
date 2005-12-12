@@ -62,7 +62,8 @@ public class MergeMojo
         	cl.createArgument().setValue("-U");
         	cl.createArgument().setValue(new File(poDirectory, keysFile).getAbsolutePath());
         	cl.createArgument().setFile(new File(poDirectory, files[i]));
-        	getLog().warn(cl.toString());
+        	
+        	getLog().debug("Executing: " + cl.toString());
     		StreamConsumer out = new LoggerStreamConsumer(getLog(), LoggerStreamConsumer.INFO);
     		StreamConsumer err = new LoggerStreamConsumer(getLog(), LoggerStreamConsumer.WARN);
         	try {
@@ -71,6 +72,5 @@ public class MergeMojo
     			getLog().error("Could not execute xgettext.", e);
     		}
     	}
-
     }
 }
