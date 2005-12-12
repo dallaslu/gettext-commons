@@ -68,7 +68,6 @@ public class GettextMojo
     	cl.createArgument().setValue("--from-code=" + encoding);
     	cl.createArgument().setValue("--output=" + new File(poDirectory, keysFile).getAbsolutePath());
     	cl.createArgument().setValue("--language=Java");
-    	cl.createArgument().setValue("--directory=" + sourceDirectory);
     	cl.createArgument().setLine(keywords);
     	
     	DirectoryScanner ds = new DirectoryScanner();
@@ -80,7 +79,9 @@ public class GettextMojo
     		cl.createArgument().setValue(sourceDirectory.getAbsolutePath() 
     				+ File.separator +  files[i]);
     	}
-    	getLog().warn(cl.toString());
+    	
+    	getLog().debug("Executing: " + cl.toString());
+    	
 		StreamConsumer out = new LoggerStreamConsumer(getLog(), LoggerStreamConsumer.INFO);
 		StreamConsumer err = new LoggerStreamConsumer(getLog(), LoggerStreamConsumer.WARN);
     	try {

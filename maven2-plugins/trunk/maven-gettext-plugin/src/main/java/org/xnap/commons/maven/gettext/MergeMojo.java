@@ -62,7 +62,7 @@ public class MergeMojo
         	cl.createArgument().setValue("-U");
         	cl.createArgument().setValue(new File(poDirectory, keysFile).getAbsolutePath());
         	cl.createArgument().setFile(new File(poDirectory, files[i]));
-        	
+        	getLog().warn(cl.toString());
     		StreamConsumer out = new LoggerStreamConsumer(getLog(), LoggerStreamConsumer.INFO);
     		StreamConsumer err = new LoggerStreamConsumer(getLog(), LoggerStreamConsumer.WARN);
         	try {
