@@ -22,24 +22,6 @@
           </td>
         </tr>
         <tr>
-          <td>gettext.sourceDirectory</td>
-          <td>true</td>
-          <td>
-            Default value is
-			<code>${pom.build.sourceDirectory}</code>. Specifies the 
-			directory that is searched for Java files.
-          </td>
-        </tr>
-        <tr>
-          <td>gettext.sourceLocale</td>
-          <td>true</td>
-          <td>
-            Default value is <code>en</code>. Specifies the locale of
-            the source code. An empty resource is generated for the
-            source locale.
-          </td>
-        </tr>
-        <tr>
           <td>gettext.javaVersion</td>
           <td>true</td>
           <td>
@@ -64,14 +46,6 @@
           <td>
             Default is <code>-ktrc -ktr -kmarktr -ktrn:1,2</code>. 
 			Specifies the gettext parameters for key lookup.
-          </td>
-        </tr>
-        <tr>
-          <td>gettext.msgcat</td>
-          <td>true</td>
-          <td>
-            Default is <code>msgcat</code>. Specifies the name of the
-			msgcat program.
           </td>
         </tr>
         <tr>
@@ -127,6 +101,24 @@
           <td>
             Default is <code>${basedir}/po</code>. Specifies the path that is
 			searched for po files.
+          </td>
+        </tr>
+        <tr>
+          <td>gettext.sourceDirectory</td>
+          <td>true</td>
+          <td>
+            Default value is
+			<code>${pom.build.sourceDirectory}</code>. Specifies the 
+			directory that is searched for Java files.
+          </td>
+        </tr>
+        <tr>
+          <td>gettext.sourceLocale</td>
+          <td>true</td>
+          <td>
+            Default value is <code>en</code>. Specifies the locale of
+            the source code. An empty resource is generated for the
+            source locale.
           </td>
         </tr>
         <tr>

@@ -8,10 +8,13 @@
     <section name="Maven Gettext Plugin">
       <p>A plugin to integrate gettext tools into a Maven build.</p>
 
+      <p>This plugin is for <b>Maven 1.x</b>. Look <a
+      href="/m2/maven-gettext-plugin/index.html">here</a> for a Maven
+      2.x plugin.</p>
     </section>
 
     <section name="Installation">
-      <p>There are three <b>alternative</b> ways to install the
+      <p>There are two <b>alternative</b> ways to install the
       plugin. <b>Choose one.</b></p>
 
       <ul>
@@ -20,33 +23,49 @@
 
 <source>maven plugin:download -DartifactId=maven-gettext-plugin -DgroupId=xnap-commons -Dversion=1.0</source></li>
 
-      <li>Or add a dependency to your project.xml:
+      <li>Alternatively add a dependency to your project.xml:
 
 <source><![CDATA[<dependency>
   <groupId>xnap-commons</groupId>
-  <artifactId>xnap-commons-plugin</artifactId>
+  <artifactId>maven-gettext-plugin</artifactId>
   <version>1.0</version>
   <type>plugin</type>
 </dependency>]]></source></li>
 
+	  <p>And add the XNap Commons repository to your
+	  project.properties:</p>
+
+<source>
+maven.repo.remote = http://www.ibiblio.org/maven,http://xnap-commons.sf.net/repository
+</source>
       </ul>
     </section>
 	  
     <section name="Usage">
       <subsection name="Expected Project Layout">
-	  <p></p>
+	  <p>If you are using the <a href="/index.html">XNap Commons</a>
+		  for internationalization (i18n) and if your project is layed
+		  out as shown below, the plugin will not require any
+		  configuration through properties.</p>
+
 <source>+ po
-          - keys.pot
-          - de.po
-          - en.po
+  - keys.pot
+  - xy.po
 + src
   + java
 </source>
       </subsection>
 
       <subsection name="Build process integration">
-<source>
-</source>
+
+		<p>Create a file called <code>maven.xml</code> in your
+		  project's base directory:</p>
+
+<source><![CDATA[<project>
+  <postGoal name="java:compile">
+    <attainGoal name="gettext:dist"/>
+  </postGoal>
+</project>]]></source>
       </subsection>
     </section>
   </body>

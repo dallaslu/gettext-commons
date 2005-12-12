@@ -6,7 +6,7 @@
   <pomVersion>3</pomVersion>
   <groupId>xnap-commons</groupId>
   <artifactId>maven-gettext-plugin</artifactId>
-  <name>Maven gettext Plugin</name>
+  <name>Maven Gettext Plugin</name>
   <currentVersion>1.0-SNAPSHOT</currentVersion>
   <description/>
   <shortDescription></shortDescription>

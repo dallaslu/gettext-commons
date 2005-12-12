@@ -9,8 +9,8 @@
       <goal>
         <name>gettext</name>
         <description>
-		  Invokes the <code>statcvs:merge</code> and
-		  <code>statcvs:dist</code> goal.
+		  Invokes the <code>gettext:merge</code> and
+		  <code>gettext:dist</code> goal.
         </description>
       </goal>
       <goal>
@@ -23,7 +23,7 @@
       <goal>
         <name>gettext:merge</name>
         <description>
-          Invokes the <code>statcvs:gettext</code> goal and invokes 
+          Invokes the <code>gettext:gettext</code> goal and invokes 
 		  <code>msgmerge</code> to update po files.
         </description>
       </goal>
@@ -50,7 +50,7 @@
         </description>
       </goal>
     </goals>
-
+<!--
     <section name="Automatic report generation">
       <p>
         In order to automaticall generate gettext statistics reports
@@ -66,5 +66,6 @@
   </reports>
 ]]></source>
     </section>
+-->
   </body>
 </document>
