@@ -104,4 +104,12 @@
       <url>scp://shell.sf.net//home/groups/x/xn/xnap-commons/htdocs/m2/maven-gettext-plugin/</url>
     </site>
   </distributionManagement>
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-plugin-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </reporting>
 </project>
