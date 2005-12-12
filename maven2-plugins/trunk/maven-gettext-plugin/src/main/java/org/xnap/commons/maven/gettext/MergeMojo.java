@@ -16,8 +16,7 @@ package org.xnap.commons.maven.gettext;
  * limitations under the License.
  */
 
-import java.io.StringWriter;
-import java.io.Writer;
+import java.io.File;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.codehaus.plexus.util.DirectoryScanner;
@@ -25,7 +24,6 @@ import org.codehaus.plexus.util.cli.CommandLineException;
 import org.codehaus.plexus.util.cli.CommandLineUtils;
 import org.codehaus.plexus.util.cli.Commandline;
 import org.codehaus.plexus.util.cli.StreamConsumer;
-import org.codehaus.plexus.util.cli.WriterStreamConsumer;
 
 /**
  * Goal which touches a timestamp file.
@@ -51,7 +49,7 @@ public class MergeMojo
 				+ poDirectory.getAbsolutePath() + "'.");
 		
 		DirectoryScanner ds = new DirectoryScanner();
-    	ds.setBasedir(sourceDirectory);
+    	ds.setBasedir(poDirectory);
     	ds.setIncludes(new String[] {"**/*.po"});
     	ds.scan();
     	String[] files = ds.getIncludedFiles();
@@ -63,14 +61,12 @@ public class MergeMojo
         	cl.createArgument().setValue("--backup=numbered");
         	cl.createArgument().setValue("-U");
         	cl.createArgument().setValue(keysFile.getAbsolutePath());
-        	cl.createArgument().setValue(files[i]);
+        	cl.createArgument().setValue(new File(poDirectory, files[i]).getAbsolutePath());
         	
-        	Writer sw = new StringWriter();
-    		StreamConsumer out = new WriterStreamConsumer(sw);
-    		StreamConsumer err = new WriterStreamConsumer(sw);
+    		StreamConsumer out = new LoggerStreamConsumer(getLog(), LoggerStreamConsumer.INFO);
+    		StreamConsumer err = new LoggerStreamConsumer(getLog(), LoggerStreamConsumer.WARN);
         	try {
     			CommandLineUtils.executeCommandLine(cl, out, err);
-    			getLog().info(sw.toString());
     		} catch (CommandLineException e) {
     			getLog().error("Could not execute xgettext.", e);
     		}

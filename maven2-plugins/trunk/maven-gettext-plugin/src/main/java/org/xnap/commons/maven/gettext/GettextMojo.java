@@ -17,8 +17,6 @@ package org.xnap.commons.maven.gettext;
  */
 
 import java.io.File;
-import java.io.StringWriter;
-import java.io.Writer;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.codehaus.plexus.util.DirectoryScanner;
@@ -26,7 +24,6 @@ import org.codehaus.plexus.util.cli.CommandLineException;
 import org.codehaus.plexus.util.cli.CommandLineUtils;
 import org.codehaus.plexus.util.cli.Commandline;
 import org.codehaus.plexus.util.cli.StreamConsumer;
-import org.codehaus.plexus.util.cli.WriterStreamConsumer;
 
 /**
  * Goal which touches a timestamp file.
@@ -84,12 +81,10 @@ public class GettextMojo
     				+ File.separator +  files[i]);
     	}
     	
-    	Writer stringWriter = new StringWriter();
-		StreamConsumer out = new WriterStreamConsumer(stringWriter);
-		StreamConsumer err = new WriterStreamConsumer(stringWriter);
+		StreamConsumer out = new LoggerStreamConsumer(getLog(), LoggerStreamConsumer.INFO);
+		StreamConsumer err = new LoggerStreamConsumer(getLog(), LoggerStreamConsumer.WARN);
     	try {
 			CommandLineUtils.executeCommandLine(cl, out, err);
-			getLog().info(stringWriter.toString());
 		} catch (CommandLineException e) {
 			getLog().error("Could not execute xgettext.", e);
 		}

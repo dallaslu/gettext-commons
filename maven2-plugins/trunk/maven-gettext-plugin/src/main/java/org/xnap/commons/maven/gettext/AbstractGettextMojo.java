@@ -50,26 +50,10 @@ public abstract class AbstractGettextMojo
     protected File poDirectory;
     
     /**
-     * Java version.
-     * Can be "1" or "2".
-     * @parameter expression="${javaVersion}" default-value="2"
-     * @required
-     */
-    protected String javaVersion;
-
-    /**
      * Filename of the .pot file.2
      * @parameter expression="${keysFile}" default-value="${poDirectory}/keys.pot"
      * @required
      */
     protected File keysFile;
-    
-    
-    /**
-     * @parameter expression="${sourceLocale}" default-value="EN"
-     * @required
-     */
-    protected String sourceLocale;
-    
     
 }

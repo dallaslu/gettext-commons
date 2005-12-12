@@ -16,22 +16,146 @@ package org.xnap.commons.maven.gettext;
  * limitations under the License.
  */
 
+import java.io.File;
+
 import org.apache.maven.plugin.MojoExecutionException;
+import org.codehaus.plexus.util.DirectoryScanner;
+import org.codehaus.plexus.util.cli.CommandLineException;
+import org.codehaus.plexus.util.cli.CommandLineUtils;
+import org.codehaus.plexus.util.cli.Commandline;
+import org.codehaus.plexus.util.cli.StreamConsumer;
 
 /**
  * Goal which touches a timestamp file.
  *
  * @goal dist
  * 
- * @phase process-sources
+ * @phase generate-resources
  */
 public class DistMojo
-    extends AbstractGettextMojo
-{
+    extends AbstractGettextMojo {
 
-	public void execute()
-        throws MojoExecutionException
-    {
-    	//TODO
+    /**
+     * @description msgcat command.
+     * @parameter expression="${msgcatCmd}" default-value="msgcat"
+     * @required 
+     */
+    protected String msgcatCmd;
+    
+    /**
+     * @description msgfmt command.
+     * @parameter expression="${msgfmtCmd}" default-value="msgfmt"
+     * @required 
+     */
+    protected String msgfmtCmd;
+    
+    /**
+     * @description target package.
+     * @parameter expression="${targetPackage}"
+     * @required 
+     */
+    protected String targetPackage;
+    
+    /**
+     * @description Output format ("class" or "properties")
+     * @parameter expression="${outputFormat}" default-value="class"
+     * @required 
+     */
+    protected String outputFormat;
+    
+    /**
+     * Java version.
+     * Can be "1" or "2".
+     * @parameter expression="${javaVersion}" default-value="2"
+     * @required
+     */
+    protected String javaVersion;
+
+    /**
+     * @parameter expression="${sourceLocale}" default-value="EN"
+     * @required
+     */
+    protected String sourceLocale;
+
+    public void execute()
+        throws MojoExecutionException {
+    	
+    	CommandlineFactory cf = null;
+		if ("class".equals(outputFormat)) {
+			cf = new MsgFmtCommandlineFactory();
+		} else if ("properties".equals(outputFormat)) {
+			cf = new MsgCatCommandlineFactory();
+		} else 	
+			throw new MojoExecutionException("Unknown output format: " 
+					+ outputFormat + ". Should be 'class' or 'properties'.");
+
+		DirectoryScanner ds = new DirectoryScanner();
+    	ds.setBasedir(poDirectory);
+    	ds.setIncludes(new String[] {"**/*.po"});
+    	ds.scan();
+    	
+    	String[] files = ds.getIncludedFiles();
+    	for (int i = 0; i < files.length; i++) {
+    		getLog().info("Processing " + files[i]);
+    		StreamConsumer out = new LoggerStreamConsumer(getLog(), LoggerStreamConsumer.INFO);
+    		StreamConsumer err = new LoggerStreamConsumer(getLog(), LoggerStreamConsumer.WARN);
+        	try {
+    			CommandLineUtils.executeCommandLine(cf.createCommandline(new File(poDirectory, files[i])), out, err);
+    		} catch (CommandLineException e) {
+    			getLog().error("Could not execute xgettext.", e);
+    		}
+    	}
+    	
+    	//TODO: create Default Bundles
     }
+    	
+    private interface CommandlineFactory {
+    	Commandline createCommandline(File file);
+    }
+    
+    private class MsgFmtCommandlineFactory implements CommandlineFactory {
+        public Commandline createCommandline(File file) {
+    		String locale = file.getName().substring(0, file.getName().lastIndexOf('.'));
+
+        	Commandline cl = new Commandline();
+        	cl.setExecutable(msgfmtCmd);
+        	
+        	if ("2".equals(javaVersion)) {
+        		cl.createArgument().setValue("--java2");
+        	} else {
+        		cl.createArgument().setValue("--java");
+        	}
+        	
+        	cl.createArgument().setValue("-d");
+        	cl.createArgument().setFile(outputDirectory);
+        	cl.createArgument().setValue("-r");
+        	cl.createArgument().setValue(targetPackage);
+        	cl.createArgument().setValue("-l");
+        	cl.createArgument().setValue(locale);
+        	cl.createArgument().setFile(file);
+
+        	return cl;
+        }
+    }
+
+    private class MsgCatCommandlineFactory implements CommandlineFactory {
+    	public Commandline createCommandline(File file) {
+    		String basepath = targetPackage.replace('.', File.separatorChar);
+    		String locale = file.getName().substring(0, file.getName().lastIndexOf('.'));
+        	File target = new File(outputDirectory, basepath + "_" + locale + ".properties");
+        	Commandline cl = new Commandline();
+       	
+        	cl.setExecutable(msgfmtCmd);
+       	
+        	cl.createArgument().setValue("--no-location");
+        	cl.createArgument().setValue("-p");
+        	cl.createArgument().setFile(file);
+        	cl.createArgument().setValue("-o");
+        	cl.createArgument().setFile(target);
+
+        	return cl;
+        }
+ 
+    }
+    
 }
