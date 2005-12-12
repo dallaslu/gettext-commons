@@ -37,7 +37,7 @@ public class GettextMojo
 	
     /**
      * @description Source Encoding.
-     * @parameter expression="${encoding} default-value="utf-8" 
+     * @parameter expression="${encoding}" default-value="utf-8" 
      */
 	protected String encoding;
 	
@@ -66,7 +66,7 @@ public class GettextMojo
 		Commandline cl = new Commandline();
 		cl.setExecutable(xgettextCmd);
     	cl.createArgument().setValue("--from-code=" + encoding);
-    	cl.createArgument().setValue("--output=" + keysFile.getAbsolutePath());
+    	cl.createArgument().setValue("--output=" + new File(poDirectory, keysFile).getAbsolutePath());
     	cl.createArgument().setValue("--language=Java");
     	cl.createArgument().setValue("--directory=" + sourceDirectory);
     	cl.createArgument().setLine(keywords);
@@ -80,7 +80,7 @@ public class GettextMojo
     		cl.createArgument().setValue(sourceDirectory.getAbsolutePath() 
     				+ File.separator +  files[i]);
     	}
-    	
+    	getLog().warn(cl.toString());
 		StreamConsumer out = new LoggerStreamConsumer(getLog(), LoggerStreamConsumer.INFO);
 		StreamConsumer err = new LoggerStreamConsumer(getLog(), LoggerStreamConsumer.WARN);
     	try {

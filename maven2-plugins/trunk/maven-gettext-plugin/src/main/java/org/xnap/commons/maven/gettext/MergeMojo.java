@@ -60,8 +60,8 @@ public class MergeMojo
         	cl.createArgument().setValue("-q");
         	cl.createArgument().setValue("--backup=numbered");
         	cl.createArgument().setValue("-U");
-        	cl.createArgument().setValue(keysFile.getAbsolutePath());
-        	cl.createArgument().setValue(new File(poDirectory, files[i]).getAbsolutePath());
+        	cl.createArgument().setValue(new File(poDirectory, keysFile).getAbsolutePath());
+        	cl.createArgument().setFile(new File(poDirectory, files[i]));
         	
     		StreamConsumer out = new LoggerStreamConsumer(getLog(), LoggerStreamConsumer.INFO);
     		StreamConsumer err = new LoggerStreamConsumer(getLog(), LoggerStreamConsumer.WARN);

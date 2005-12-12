@@ -51,9 +51,9 @@ public abstract class AbstractGettextMojo
     
     /**
      * Filename of the .pot file.2
-     * @parameter expression="${keysFile}" default-value="${poDirectory}/keys.pot"
+     * @parameter expression="${keysFile}" default-value="keys.pot"
      * @required
      */
-    protected File keysFile;
+    protected String keysFile;
     
 }

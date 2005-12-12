@@ -17,6 +17,7 @@ package org.xnap.commons.maven.gettext;
  */
 
 import java.io.File;
+import java.io.IOException;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.codehaus.plexus.util.DirectoryScanner;
@@ -51,10 +52,10 @@ public class DistMojo
     
     /**
      * @description target package.
-     * @parameter expression="${targetPackage}"
+     * @parameter expression="${targetBundle}"
      * @required 
      */
-    protected String targetPackage;
+    protected String targetBundle;
     
     /**
      * @description Output format ("class" or "properties")
@@ -106,9 +107,22 @@ public class DistMojo
     		}
     	}
     	
-    	//TODO: create Default Bundles
+    	String basepath = targetBundle.replace('.', File.separatorChar);
+    	getLog().info("Creating resource bundle for source locale");
+    	touch(new File(outputDirectory, basepath + "_" + sourceLocale + ".properties"));
+    	getLog().info("Creating default resource bundle");
+    	touch(new File(outputDirectory, basepath + ".properties"));
     }
     	
+    private void touch(File file) {
+    	if (!file.exists()) {
+    		try {
+				file.createNewFile();
+			} catch (IOException e) {
+				getLog().warn("Could not touch file: " + file.getName(), e);
+			}
+    	}
+    }
     private interface CommandlineFactory {
     	Commandline createCommandline(File file);
     }
@@ -129,18 +143,18 @@ public class DistMojo
         	cl.createArgument().setValue("-d");
         	cl.createArgument().setFile(outputDirectory);
         	cl.createArgument().setValue("-r");
-        	cl.createArgument().setValue(targetPackage);
+        	cl.createArgument().setValue(targetBundle);
         	cl.createArgument().setValue("-l");
         	cl.createArgument().setValue(locale);
         	cl.createArgument().setFile(file);
-
+        	getLog().warn(cl.toString());
         	return cl;
         }
     }
 
     private class MsgCatCommandlineFactory implements CommandlineFactory {
     	public Commandline createCommandline(File file) {
-    		String basepath = targetPackage.replace('.', File.separatorChar);
+    		String basepath = targetBundle.replace('.', File.separatorChar);
     		String locale = file.getName().substring(0, file.getName().lastIndexOf('.'));
         	File target = new File(outputDirectory, basepath + "_" + locale + ".properties");
         	Commandline cl = new Commandline();
@@ -155,7 +169,6 @@ public class DistMojo
 
         	return cl;
         }
- 
-    }
+     }
     
 }
