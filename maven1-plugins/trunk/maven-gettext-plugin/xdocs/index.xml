@@ -2,7 +2,7 @@
 
 <document>
   <properties>
-    <title>Maven Gettext Plugin</title>
+    <title>About</title>
   </properties>
   <body>
     <section name="Maven Gettext Plugin">
@@ -15,7 +15,7 @@
 
     <section name="Installation">
       <p>There are two <b>alternative</b> ways to install the
-      plugin. <b>Choose one.</b></p>
+      plugin. Choose one:</p>
 
       <ul>
 		<li>The easiest way to install the gettext plugin is through
@@ -58,14 +58,22 @@ maven.repo.remote = http://www.ibiblio.org/maven,http://xnap-commons.sf.net/repo
 
       <subsection name="Build process integration">
 
-		<p>Create a file called <code>maven.xml</code> in your
-		  project's base directory:</p>
+		<p>Invoke the <code>merge</code> goal to create or update your
+		key template and po files:</p>
+
+<source>maven gettext:merge</source>
+
+		<p>Additionally create a file called <code>maven.xml</code> in
+		your project's base directory:</p>
 
 <source><![CDATA[<project>
   <postGoal name="java:compile">
     <attainGoal name="gettext:dist"/>
   </postGoal>
 </project>]]></source>
+
+		<p>This will update your Java class or property files from the
+		po files each time the project is compiled.</p>
       </subsection>
     </section>
   </body>
