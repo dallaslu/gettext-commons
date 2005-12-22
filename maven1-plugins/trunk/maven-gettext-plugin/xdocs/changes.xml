@@ -7,6 +7,20 @@
   </properties>
 
   <body>
+	<release version="1.1" date="2005-12-22">
+      <action dev="squig" type="add">
+	    Added gettext.backupMode property. 
+      </action>
+      <action dev="squig" type="update">
+	    Added -marktrn parameter to gettext.keywords property.
+      </action>
+      <action dev="squig" type="fix">
+	    Fixed order of parameters of msgmerge command.
+      </action>
+      <action dev="squig" type="fix">
+	    Fixed evaluation of gettext.javaVersion property.
+      </action>
+    </release>
 	<release version="1.0" date="2005-12-11">
       <action dev="squig" type="">
 	    First release.

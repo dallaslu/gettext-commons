@@ -74,10 +74,10 @@
 	    executable="${gettext.msgmerge}">
 	    <!-- failonerror="true"/> -->
         <ant:arg value="-q"/>
-	    <ant:arg value="--backup=numbered"/>
+	    <ant:arg value="--backup=${gettext.backupMode}"/>
         <ant:arg value="-U"/>
-	    <ant:arg value="${gettext.keysFile}"/>
 	    <ant:arg value="${file}"/>
+	    <ant:arg value="${gettext.keysFile}"/>
       </ant:exec>
 	</j:forEach>
   </goal>
@@ -116,7 +116,7 @@
   <!--==================================================================-->
   <goal name="gettext:dist-msgfmt" prereqs="gettext:prepare-dist">
 	<ant:echo>Invoking msgfmt for po files in '${gettext.poDirectory}'</ant:echo>
-    <j:set var="javaversion" value="${gettext.javaversion}"/>
+    <j:set var="javaversion" value="${gettext.javaVersion}"/>
 	<j:forEach var="file" items="${files.iterator()}">
       <j:set var="index" value="${file.name.lastIndexOf('.')}"/>
       <j:set var="basename" value="${file.name.substring(0,index)}"/>

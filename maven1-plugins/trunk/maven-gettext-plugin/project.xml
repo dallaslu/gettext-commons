@@ -7,7 +7,7 @@
   <groupId>xnap-commons</groupId>
   <artifactId>maven-gettext-plugin</artifactId>
   <name>Maven Gettext Plugin</name>
-  <currentVersion>1.0</currentVersion>
+  <currentVersion>1.1</currentVersion>
   <description/>
   <shortDescription></shortDescription>
 
@@ -20,6 +20,11 @@
   </repository>
 
   <versions>
+    <version>
+      <id>1.1</id>
+      <name>1.1</name>
+      <tag>maven-gettext-plugin-1_1</tag>
+    </version>
     <version>
       <id>1.0</id>
       <name>1.0</name>

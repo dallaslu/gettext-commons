@@ -14,6 +14,16 @@
           <th>Description</th>
         </tr>
         <tr>
+          <td>getext.backupMode</td>
+          <td>true</td>
+          <td>
+            Default value is <code>numbered</code>. Specifies the
+			backup mode that is used by msgmerge. Valid values are:
+			<code>none</code>, <code>numbered</code>,
+			<code>existing</code>, <code>simple</code> 
+          </td>
+        </tr>
+        <tr>
           <td>getext.encoding</td>
           <td>true</td>
           <td>
