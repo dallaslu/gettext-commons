@@ -86,7 +86,7 @@ public class GettextMojo
     	try {
 			CommandLineUtils.executeCommandLine(cl, out, err);
 		} catch (CommandLineException e) {
-			getLog().error("Could not execute xgettext.", e);
+			getLog().error("Could not execute " + xgettextCmd + ".", e);
 		}
     }
 }

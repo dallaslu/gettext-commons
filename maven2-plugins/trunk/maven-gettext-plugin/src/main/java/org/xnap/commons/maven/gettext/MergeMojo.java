@@ -70,7 +70,7 @@ public class MergeMojo
         	try {
     			CommandLineUtils.executeCommandLine(cl, out, err);
     		} catch (CommandLineException e) {
-    			getLog().error("Could not execute xgettext.", e);
+    			getLog().error("Could not execute " + msgmergeCmd + ".", e);
     		}
     	}
     }
