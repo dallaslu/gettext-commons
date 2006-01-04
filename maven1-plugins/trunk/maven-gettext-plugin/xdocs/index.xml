@@ -8,9 +8,9 @@
     <section name="Maven Gettext Plugin">
       <p>A plugin to integrate gettext tools into a Maven build.</p>
 
-      <p>This plugin is for <b>Maven 1.x</b>. Look <a
-      href="/m2/maven-gettext-plugin/index.html">here</a> for a Maven
-      2.x plugin.</p>
+      <p>This plugin is for <b>Maven 1.x</b>. A <a
+      href="/m2/maven-gettext-plugin/index.html">Maven 2.x plugin</a>
+      is available as well.</p>
     </section>
 
     <section name="Installation">
@@ -21,14 +21,14 @@
 		<li>The easiest way to install the gettext plugin is through
       Maven:
 
-<source>maven plugin:download -DartifactId=maven-gettext-plugin -DgroupId=xnap-commons -Dversion=1.0</source></li>
+<source>maven plugin:download -DartifactId=maven-gettext-plugin -DgroupId=xnap-commons -Dversion=1.1</source></li>
 
       <li>Alternatively add a dependency to your project.xml:
 
 <source><![CDATA[<dependency>
   <groupId>xnap-commons</groupId>
   <artifactId>maven-gettext-plugin</artifactId>
-  <version>1.0</version>
+  <version>1.1</version>
   <type>plugin</type>
 </dependency>]]></source></li>
 
