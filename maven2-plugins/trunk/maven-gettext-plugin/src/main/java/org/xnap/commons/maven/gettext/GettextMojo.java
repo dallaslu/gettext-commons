@@ -16,7 +16,10 @@ package org.xnap.commons.maven.gettext;
  * limitations under the License.
  */
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.codehaus.plexus.util.DirectoryScanner;
@@ -55,8 +58,6 @@ public class GettextMojo
      */
     protected String xgettextCmd;
 
-
-
 	public void execute()
         throws MojoExecutionException
     {
@@ -74,19 +75,51 @@ public class GettextMojo
     	ds.setBasedir(sourceDirectory);
     	ds.setIncludes(new String[] {"**/*.java"});
     	ds.scan();
-    	String[] files = ds.getIncludedFiles();
-    	for (int i = 0; i < files.length; i++) {
-    		cl.createArgument().setValue(sourceDirectory.getAbsolutePath() 
-    				+ File.separator +  files[i]);
+        String[] files = ds.getIncludedFiles();
+        
+    	File file = createListFile(files);
+    	if (file != null) {
+    	    cl.createArgument().setValue("--files-from=" + file.getAbsolutePath());
+    	} else {
+    	    for (int i = 0; i < files.length; i++) {
+    	        cl.createArgument().setValue(getAbsolutePath(files[i]));
+    	    }
     	}
     	
     	getLog().debug("Executing: " + cl.toString());
-		StreamConsumer out = new LoggerStreamConsumer(getLog(), LoggerStreamConsumer.INFO);
-		StreamConsumer err = new LoggerStreamConsumer(getLog(), LoggerStreamConsumer.WARN);
+    	StreamConsumer out = new LoggerStreamConsumer(getLog(), LoggerStreamConsumer.INFO);
+    	StreamConsumer err = new LoggerStreamConsumer(getLog(), LoggerStreamConsumer.WARN);
     	try {
-			CommandLineUtils.executeCommandLine(cl, out, err);
-		} catch (CommandLineException e) {
-			getLog().error("Could not execute " + xgettextCmd + ".", e);
-		}
+    	    CommandLineUtils.executeCommandLine(cl, out, err);
+    	} catch (CommandLineException e) {
+    	    getLog().error("Could not execute " + xgettextCmd + ".", e);
+    	}
     }
+
+    private File createListFile(String[] files) {
+        try {
+            File listFile = File.createTempFile("maven", null);
+            listFile.deleteOnExit();
+            
+            BufferedWriter writer = new BufferedWriter(new FileWriter(listFile));
+            try {
+                for (int i = 0; i < files.length; i++) {
+                    writer.write(getAbsolutePath(files[i]));
+                    writer.newLine();
+                }                
+            } finally {
+                writer.close();
+            }
+            
+            return listFile;
+        } catch (IOException e) {
+            getLog().error("Could not create list file.", e);
+            return null;
+        }
+    }
+    
+    private String getAbsolutePath(String path) {
+        return sourceDirectory.getAbsolutePath() + File.separator + path;
+    }
+    
 }

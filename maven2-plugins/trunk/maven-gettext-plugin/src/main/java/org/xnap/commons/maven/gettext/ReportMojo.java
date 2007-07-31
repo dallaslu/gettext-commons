@@ -25,6 +25,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.StringTokenizer;
+
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.reporting.AbstractMavenReport;
 import org.apache.maven.reporting.MavenReportException;
