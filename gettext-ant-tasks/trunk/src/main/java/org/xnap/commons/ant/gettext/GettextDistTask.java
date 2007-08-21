@@ -74,9 +74,17 @@ public class GettextDistTask extends AbstractGettextTask {
         this.outputDirectory = outputDirectory;
     }
     
+    
+    private void checkPreconditions() {
+    	if (outputDirectory == null) {
+    		throw new BuildException("outputDirectory must be set");
+    	}
+    }
 
     public void execute() {
         
+    	checkPreconditions();
+    	
         CommandlineFactory cf = null;
         if ("class".equals(outputFormat)) {
             cf = new MsgFmtCommandlineFactory();
