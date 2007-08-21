@@ -29,12 +29,14 @@
  	 	       classname="org.xnap.commons.ant.gettext.GettextDistTask"
  	 	       classpath="${ant.project.name}.jar"/>
        <gettext-extract poDirectory=".">
-             <fileset dir="/home/fberger/.workspace/limewire2/components/"
+<!--             <fileset dir="/home/fberger/.workspace/limewire2/components/"
 	      includes="**/*.java"/>
              <fileset dir="/home/fberger/.workspace/limewire2/core/"
 	      includes="**/*.java"/>
              <fileset dir="/home/fberger/.workspace/limewire2/gui/"
-	      includes="**/*.java"/>
+	      includes="**/*.java"/> -->
+       	<fileset dir="src"
+       		      includes="**/*.java"/>
        </gettext-extract>
  </target>
 
