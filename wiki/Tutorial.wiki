@@ -77,3 +77,48 @@ public class LocaleChangeAwareClass implements LocaleChangeListener
         }
 }
 }}}
+
+= Creating Resource Bundles =
+
+Once the source code has been internationalized, i.e. all user visible strings are wrapped by a call to i18n.tr(), xgettext can be used to extract these strings for localization.
+This 3 step process is illustrated in [http://xnap-commons.sourceforge.net/gettext-commons/gettext-structure.png this figure].
+
+
+ # xgettext scans the source code for calls to tr(), trc() and trn() and creates a pot file that contains all strings in the native language. 
+ # msgmerge merges the strings into a po file that contains translations for a single locale. This file can be edited with convenient tools like poedit, KBabel or Emacs. 
+ # msgfmt is used to generate Java class files that extend the Java ResourceBundle class. 
+
+Here is a simple example of running the gettext commands:
+
+{{{
+# extract keys
+xgettext -ktrc -ktr -kmarktr -ktrn:1,2 -o po/keys.pot src/*.java 
+
+# merge keys into localized po file
+msgmerge -U po/de.po po/keys.pot
+
+# translate file
+poedit po/de.po
+
+# create German ResourceBundle class file in app.i18n package
+msgfmt --java2 -d src/conf -r app.i18n.Messages -l de de.po
+}}}
+
+= Loading Resource Bundles =
+
+In order to specify the name of the resource bundles you want to use, you create an i18n.properties file and place it in your application's toplevel package. All subpackages will use this configuration file unless they find a different one on the way up in the package hierarchy.
+
+*i18n.properties* expects the base name of the resources as the value of the key basename:
+
+{{{
+basename=app.i18n.Messages
+}}}
+
+For more information on how the resource lookup works, please [http://xnap-commons.sourceforge.net/gettext-commons/apidocs/org/xnap/commons/i18n/I18nFactory.html#getI18n(java.lang.Class,java.lang.String) read here].
+
+= Tools Integration =
+
+If Maven is used for building, the invocation of gettext can be easily integrated into the build process. Follow the appropriate link below for more information:
+
+ * [http://xnap-commons.sourceforge.net/m1/maven-gettext-plugin/index.html Maven 1.x Gettext Plugin]
+ * [http://xnap-commons.sourceforge.net/m2/maven-gettext-plugin/index.html Maven 2.x Gettext Plugin]
