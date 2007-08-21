@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
@@ -15,7 +16,7 @@ import org.apache.tools.ant.types.FileSet;
 
 public class GettextExtractKeysTask extends AbstractGettextTask {
 
-    protected Vector<FileSet> filesets = new Vector<FileSet>();
+    protected Vector filesets = new Vector();
     public void addFileSet(FileSet fileset) {
         filesets.add(fileset);
     }
@@ -47,13 +48,14 @@ public class GettextExtractKeysTask extends AbstractGettextTask {
      
         checkPreconditions();
         
-        ArrayList<String> files = new ArrayList<String>();
-        for (FileSet fileSet : filesets) {
+        ArrayList files = new ArrayList();
+        for (Iterator i = filesets.iterator(); i.hasNext();) {
+        	FileSet fileSet = (FileSet)i.next();
             DirectoryScanner scanner = fileSet.getDirectoryScanner(getProject());
             String names[] = scanner.getIncludedFiles();
             File parent = fileSet.getDir(getProject());
-            for (String name : names) {
-                files.add(getAbsolutePath(name, parent));
+            for (int j = 0; j < names.length; j++) {
+            	files.add(getAbsolutePath(names[j], parent));
             }
         }
         File file = createListFile(files);
@@ -77,7 +79,7 @@ public class GettextExtractKeysTask extends AbstractGettextTask {
         }
     }
     
-    private File createListFile(List<String> files) {
+    private File createListFile(List files) {
         try {
             File listFile = File.createTempFile("srcfiles", null);
             log(listFile.getAbsolutePath());
@@ -85,7 +87,8 @@ public class GettextExtractKeysTask extends AbstractGettextTask {
             
             BufferedWriter writer = new BufferedWriter(new FileWriter(listFile));
             try {
-                for (String file : files) {
+                for (Iterator iterator = files.iterator(); iterator.hasNext();) {
+					String file = (String) iterator.next();
                     writer.write(file);
                     writer.newLine();
                 }                
