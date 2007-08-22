@@ -14,7 +14,7 @@ public class GettextMergeKeysTask extends AbstractGettextTask {
      * @parameter expression="${msgmergeCmd}" default-value="msgmerge"
      * @required 
      */
-    protected String msgmergeCmd = "msgcat";
+    protected String msgmergeCmd = "msgmerge";
     public void setMsgmergeCmd(String msgmergeCmd) {
         this.msgmergeCmd = msgmergeCmd;
     }
@@ -45,7 +45,7 @@ public class GettextMergeKeysTask extends AbstractGettextTask {
             cl.createArgument().setFile(new File(poDirectory, files[i]));
             cl.createArgument().setValue(new File(poDirectory, keysFile).getAbsolutePath());
             
-            log("Executing: " + cl.toString(), Project.MSG_DEBUG);
+            log("Executing: " + cl.toString(), Project.MSG_INFO);
             
             runCommandLineAndWait(cl);
         }
