@@ -1,0 +1,17 @@
+#summary One-sentence summary of this page.
+
+= Resources =
+
+ * Mailinglist
+
+= Building =
+
+== Maven 1.x ==
+
+The Gettext Commons can be built with [http://maven.apache.org/maven-1.x/ Maven 1.x]:
+
+ * Create a jar file     : maven jar
+ * Generate documentation: maven site:generate
+ * Clean generated files : maven clean
+
+See Maven documentation for more information.
