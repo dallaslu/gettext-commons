@@ -1,7 +1,6 @@
 package org.xnap.commons.ant.gettext;
 
 import java.io.File;
-import java.io.IOException;
 
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.DirectoryScanner;
@@ -48,11 +47,7 @@ public class GettextMergeKeysTask extends AbstractGettextTask {
             
             log("Executing: " + cl.toString(), Project.MSG_DEBUG);
             
-            try {
-                Runtime.getRuntime().exec(cl.getCommandline());
-            } catch (IOException e) {
-                log(e.getMessage(), Project.MSG_ERR);
-            }
+            runCommandLineAndWait(cl);
         }
     }
 }

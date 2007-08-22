@@ -104,11 +104,7 @@ public class GettextDistTask extends AbstractGettextTask {
             log("Processing " + files[i]);
             Commandline cl = cf.createCommandline(new File(poDirectory, files[i]));
             log("Executing: " + cl.toString(), Project.MSG_DEBUG);
-            try {
-                Runtime.getRuntime().exec(cl.getCommandline());
-            } catch (IOException e) {
-                log("Could not execute " + cl.getExecutable() + "." + e.getMessage(), Project.MSG_ERR);
-            }
+            runCommandLineAndWait(cl);
         }
         
         String basepath = targetBundle.replace('.', File.separatorChar);

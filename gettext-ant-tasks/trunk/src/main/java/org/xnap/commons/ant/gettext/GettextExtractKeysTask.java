@@ -75,11 +75,7 @@ public class GettextExtractKeysTask extends AbstractGettextTask {
         
         log("Executing: " + cl.toString());
         
-        try {
-            Runtime.getRuntime().exec(cl.getCommandline());
-        } catch (IOException e) {
-            log(e.getMessage());
-        }
+        runCommandLineAndWait(cl);
     }
     
     private String getParentPath(File parent, Location location) {
