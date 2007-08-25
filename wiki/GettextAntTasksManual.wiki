@@ -4,11 +4,15 @@
 
 Add and edit the following lines to your Ant build.xml file.
 
+=== Include and Edit ===
+
 {{{
 <property name="gettexttasks.jar" value="lib/gettext-ant-tasks-0.9.1.jar"/>
 }}}
 
 The line above defines the location of the gettext-ant-tasks Jar file. The value should be  modified to denote the filename relative to the build.xml.
+
+=== Include ===
 
 The lines below can be copied verbatim:
 
@@ -25,3 +29,5 @@ The lines below can be copied verbatim:
   <taskdef name="gettext-dist" classname="org.xnap.commons.ant.gettext.GettextDistTask" classpath="${gettexttasks.jar}"/>
 </target>
 }}}
+
+=== Write custom targets ===
