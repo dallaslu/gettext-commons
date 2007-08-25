@@ -1,0 +1,36 @@
+#summary One-sentence summary of this page.
+
+= Introduction =
+
+Add your content here.
+
+
+= Details =
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
+
+   <property name="gettexttasks.jar" value="${limewire.lib.jars.ant}/gettexttasks.jar"/>
+ 	466	+	
+ 	467	+	    <target name="init.gettext-extract" description="Loads the
+ 	468	+	    gettext-extract task">
+ 	469	+	     <taskdef name="gettext-extract"
+ 	470	+	       classname="org.xnap.commons.ant.gettext.GettextExtractKeysTask"
+ 	471	+	       classpath="${gettexttasks.jar}"/>
+ 	472	+	    </target>
+ 	473	+	
+ 	474	+	    <target name="init.gettext-merge" description="Loads the
+ 	475	+	    gettext-merge task">
+ 	476	+	     <taskdef name="gettext-merge"
+ 	477	+	       classname="org.xnap.commons.ant.gettext.GettextMergeKeysTask"
+ 	478	+	       classpath="${gettexttasks.jar}"/>
+ 	479	+	    </target>
+ 	480	+	
+ 	481	+	    <target name="init.gettext-dist" description="Loads the
+ 	482	+	    gettext-dist task">
+ 	483	+	     <taskdef name="gettext-dist"
+ 	484	+	       classname="org.xnap.commons.ant.gettext.GettextDistTask"
+ 	485	+	       classpath="${gettexttasks.jar}"/>
+ 	486	+	    </target>
