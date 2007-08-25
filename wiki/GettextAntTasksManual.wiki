@@ -2,10 +2,17 @@
 
 = Introduction =
 
+Add and edit the following lines to your Ant build.xml file.
 
 {{{
-<property name="gettexttasks.jar" value="${limewire.lib.jars.ant}/gettexttasks.jar"/>
- 	    
+<property name="gettexttasks.jar" value="lib/gettext-ant-tasks-0.9.1.jar"/>
+}}}
+
+The line above defines the location of the gettext-ant-tasks Jar file. The value should be  modified to denote the filename relative to the build.xml.
+
+The lines below can be copied verbatim:
+
+{{{ 	    
 <target name="init.gettext-extract" description="Loads the gettext-extract task">
   <taskdef name="gettext-extract" classname="org.xnap.commons.ant.gettext.GettextExtractKeysTask" classpath="${gettexttasks.jar}"/>
 </target>
@@ -18,4 +25,3 @@
   <taskdef name="gettext-dist" classname="org.xnap.commons.ant.gettext.GettextDistTask" classpath="${gettexttasks.jar}"/>
 </target>
 }}}
-
