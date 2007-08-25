@@ -30,4 +30,20 @@ The lines below can be copied verbatim:
 </target>
 }}}
 
-=== Write custom targets ===
+== Write custom targets ==
+
+Now write targets that make use of the gettext tasks provided by the library.
+
+=== Message extraction ===
+
+This target extracts all the keys from the Java source files and stores them in a so called .pot file which can be given to translators or which is merged with existing .po files.
+
+{{{
+<target name="lw-gettext-extract" description="Extracts message keys from the source code" depends="init.gettext-extract">
+
+<gettext-extract keysFile="messages.pot" poDirectory="po">
+  <fileset dir="src/main/java" includes="**/*.java"/>
+  <fileset dir="src2/main/java" includes="**/*.java"/>
+</gettext-extract>
+</target>
+}}}
