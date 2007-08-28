@@ -16,7 +16,6 @@ public class AbstractGettextTask extends Task {
         this.poDirectory = poDirectory;
     }
 
-
     /**
      * Filename of the .pot file
      */
@@ -24,7 +23,6 @@ public class AbstractGettextTask extends Task {
     public void setKeysFile(String keysFile) {
         this.keysFile = keysFile;
     }
-    
     
     protected int runCommandLineAndWait(Commandline cl) {
     	try {
