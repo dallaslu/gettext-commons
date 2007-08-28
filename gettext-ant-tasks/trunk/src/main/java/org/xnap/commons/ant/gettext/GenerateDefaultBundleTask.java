@@ -9,9 +9,9 @@ import org.apache.tools.ant.types.Commandline;
 
 public class GenerateDefaultBundleTask extends AbstractGettextGenerateTask {
 
-	protected String msgenCmd = "msgen";
-    public void setMsgenCmd(String msgenCmd) {
-		this.msgenCmd = msgenCmd;
+	protected String msginitCmd = "msginit";
+    public void setMsgenCmd(String msginitCmd) {
+		this.msginitCmd = msginitCmd;
 	}
     
     protected String potFile = null;
@@ -47,7 +47,9 @@ public class GenerateDefaultBundleTask extends AbstractGettextGenerateTask {
     		defaultPo.delete();
     		
     		Commandline cl = new Commandline();
-    		cl.setExecutable(msgenCmd);
+    		cl.setExecutable(msginitCmd);
+    		cl.createArgument().setValue("--no-translator");
+    		cl.createArgument().setValue("-i");
     		cl.createArgument().setValue(potFile);
     		cl.createArgument().setValue("-o");
     		cl.createArgument().setFile(defaultPo);
