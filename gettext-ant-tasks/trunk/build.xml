@@ -10,7 +10,8 @@
  </target>  
        
  <target name="compile" description="Compiles the Task">
-        <javac srcdir="${src.dir}" destdir="${src.dir}"/>
+ 	    <mkdir dir="${classes.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${classes.dir}"/>
  </target>
 
  <target name="jar" description="JARs the Task" depends="compile">
