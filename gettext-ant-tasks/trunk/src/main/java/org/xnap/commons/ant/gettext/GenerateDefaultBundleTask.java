@@ -31,7 +31,7 @@ public class GenerateDefaultBundleTask extends AbstractGettextGenerateTask {
     	checkPreconditions();
     	
     	File defaultPo = createDefaultBundle();
-    	CommandlineFactory cf = getProperCommandlineFactory();
+    	CommandlineFactory cf = getCommandlineFactory();
         Commandline cl = cf.createCommandline(defaultPo, null);
     	
     	log("Executing: " + cl.toString(), Project.MSG_DEBUG);

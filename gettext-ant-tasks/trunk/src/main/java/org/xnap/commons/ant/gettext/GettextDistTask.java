@@ -12,7 +12,7 @@ public class GettextDistTask extends AbstractGettextGenerateTask {
         
     	checkPreconditions();
     	
-        CommandlineFactory cf = getProperCommandlineFactory();
+        CommandlineFactory cf = getCommandlineFactory();
         
         DirectoryScanner ds = new DirectoryScanner();
         ds.setBasedir(poDirectory);

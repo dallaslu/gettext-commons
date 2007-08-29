@@ -68,7 +68,7 @@ public class AbstractGettextGenerateTask extends AbstractGettextTask {
     	}
     }
     
-    protected CommandlineFactory getProperCommandlineFactory() {
+    protected CommandlineFactory getCommandlineFactory() {
     	if ("class".equals(outputFormat)) {
     		return new MsgFmtCommandlineFactory();
     	} else if ("properties".equals(outputFormat)) {
@@ -79,20 +79,18 @@ public class AbstractGettextGenerateTask extends AbstractGettextTask {
     	}
     }
     
-    protected interface CommandlineFactory {
-        Commandline createCommandline(File file, String locale);
-        Commandline createCommandline(File file);
-    }
-    
-	protected abstract class AbstractMsgFmtCommandlineFactory implements CommandlineFactory {
+    protected abstract class CommandlineFactory {
 
-		public Commandline createCommandline(File file) {
+        public abstract Commandline createCommandline(File file, String locale);
+        
+        public Commandline createCommandline(File file) {
             String locale = file.getName().substring(0, file.getName().lastIndexOf('.'));
-			return createCommandline(file, locale);
-		}
-	}
-	
-    protected class MsgFmtCommandlineFactory extends AbstractMsgFmtCommandlineFactory {
+            return createCommandline(file, locale);
+        }
+
+    }
+    	
+    protected class MsgFmtCommandlineFactory extends CommandlineFactory {
         
     	public Commandline createCommandline(File file, String locale) {
             Commandline cl = new Commandline();
@@ -110,7 +108,7 @@ public class AbstractGettextGenerateTask extends AbstractGettextTask {
             cl.createArgument().setValue(targetBundle);
             if (locale != null) {
             	cl.createArgument().setValue("-l");
-            	cl.createArgument().setValue(locale);
+            	cl.createArgument().setValue(GettextUtils.getJavaLocale(locale));
             }
             cl.createArgument().setFile(file);
             log(cl.toString(), Project.MSG_WARN);
@@ -118,12 +116,15 @@ public class AbstractGettextGenerateTask extends AbstractGettextTask {
         }
     }
 
-    protected class MsgCatCommandlineFactory extends AbstractMsgFmtCommandlineFactory {
+    protected class MsgCatCommandlineFactory extends CommandlineFactory {
         
     	public Commandline createCommandline(File file, String locale) {
             String basepath = targetBundle.replace('.', File.separatorChar);
+            if (locale != null) {
+                basepath += "_" + GettextUtils.getJavaLocale(locale);
+            }
             
-            File target = new File(outputDirectory, basepath + (locale != null ? ("_" + locale) : "") + ".properties");
+            File target = new File(outputDirectory, basepath + ".properties");
             Commandline cl = new Commandline();
         
             cl.setExecutable(msgfmtCmd);
