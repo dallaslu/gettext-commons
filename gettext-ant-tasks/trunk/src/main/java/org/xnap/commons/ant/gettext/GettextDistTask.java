@@ -19,7 +19,7 @@ public class GettextDistTask extends AbstractGettextGenerateTask {
 		this.percentage = percentage;
 	}
 	
-	protected String moreOrLess = ">=";
+	protected String moreOrLess = "greaterOrEqual";
 	public void setMoreOrLess(String moreOrLess) {
 		this.moreOrLess = moreOrLess;
 	}
@@ -91,10 +91,10 @@ public class GettextDistTask extends AbstractGettextGenerateTask {
 			int translatedPercentage =  (int)(100.0 * (double)translated / (double)total);
 			
 			if (getProject() != null) {
-				log(MessageFormat.format("{0} has {1}% translated", new Object[] { file.getName(), Integer.valueOf(translatedPercentage) }), Project.MSG_VERBOSE);
+				log(MessageFormat.format("{0} has {1}% translated", new Object[] { file.getName(), Integer.valueOf(translatedPercentage) }), Project.MSG_INFO);
 			}
 			
-			if (moreOrLess.equals(">=")) {
+			if (moreOrLess.equals("greaterOrEqual")) {
 				return translatedPercentage >= percentage;
 			}
 			else {
