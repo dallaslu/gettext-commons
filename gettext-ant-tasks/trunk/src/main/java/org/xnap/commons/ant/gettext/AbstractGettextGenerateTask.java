@@ -127,7 +127,7 @@ public abstract class AbstractGettextGenerateTask extends AbstractGettextTask {
             File target = new File(outputDirectory, basepath + ".properties");
             Commandline cl = new Commandline();
         
-            cl.setExecutable(msgfmtCmd);
+            cl.setExecutable(msgcatCmd);
         
             cl.createArgument().setValue("--no-location");
             cl.createArgument().setValue("-p");
