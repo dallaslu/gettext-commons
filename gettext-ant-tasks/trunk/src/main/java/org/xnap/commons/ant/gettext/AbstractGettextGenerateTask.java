@@ -6,7 +6,7 @@ import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.types.Commandline;
 
-public class AbstractGettextGenerateTask extends AbstractGettextTask {
+public abstract class AbstractGettextGenerateTask extends AbstractGettextTask {
 
     /**
      * msgcat command.
