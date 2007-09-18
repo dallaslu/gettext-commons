@@ -44,5 +44,25 @@ public class GettextDistTaskTest extends TestCase {
 		task.setMoreOrLess("<");
 		assertTrue(task.fileMatchesPercentage(file));
 	}
+	
+	public void testFileWithZeroTranslations() throws Exception {
+		
+		File file = new File(getClass().getResource("en.po").toURI());
+		assertTrue(file.isFile());
+		
+		GettextDistTask task = new GettextDistTask();
+		task.setPercentage(1);
+		
+		assertFalse(task.fileMatchesPercentage(file));
+		
+		task.setMoreOrLess("less");
+		assertTrue(task.fileMatchesPercentage(file));
+		
+		task.setPercentage(0);
+		assertFalse(task.fileMatchesPercentage(file));
+		
+		task.setMoreOrLess("greaterOrEqual");
+		assertTrue(task.fileMatchesPercentage(file));
+	}
 
 }

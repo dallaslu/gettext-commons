@@ -67,7 +67,16 @@ public class GettextDistTask extends AbstractGettextGenerateTask {
 				builder.append(buffer, 0, count);
 			}
 			
-			StringTokenizer st = new StringTokenizer(builder.toString());
+			String output = builder.toString();
+			// zero translations
+			if (output.startsWith("0")) {
+				if (getProject() != null) {
+					log(MessageFormat.format("{0} has {1}% translated", new Object[] { file.getName(), Integer.valueOf(0) }), Project.MSG_INFO);
+				}
+				return evaluatePercentage(0);
+			}
+			
+			StringTokenizer st = new StringTokenizer(output);
 			if (st.countTokens() < 6) {
 				throw new BuildException("unexpected output: " + builder.toString());
 			}
@@ -89,22 +98,28 @@ public class GettextDistTask extends AbstractGettextGenerateTask {
 			}
 
 			int translatedPercentage =  (int)(100.0 * (double)translated / (double)total);
-			
+
 			if (getProject() != null) {
 				log(MessageFormat.format("{0} has {1}% translated", new Object[] { file.getName(), Integer.valueOf(translatedPercentage) }), Project.MSG_INFO);
 			}
 			
-			if (moreOrLess.equals("greaterOrEqual")) {
-				return translatedPercentage >= percentage;
-			}
-			else {
-				return translatedPercentage < percentage;
-			}
+			return evaluatePercentage(translatedPercentage);
+		
 		} catch (IOException e) {
 			throw new BuildException(e.getMessage());
 		}
 		catch (NumberFormatException nfe) {
 			throw new BuildException(nfe.getMessage());
+		}
+    }
+    
+    private boolean evaluatePercentage(int translatedPercentage) {
+    	
+		if (moreOrLess.equals("greaterOrEqual")) {
+			return translatedPercentage >= percentage;
+		}
+		else {
+			return translatedPercentage < percentage;
 		}
     }
 }
