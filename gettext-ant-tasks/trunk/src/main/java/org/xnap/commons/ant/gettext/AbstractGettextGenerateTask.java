@@ -1,10 +1,16 @@
 package org.xnap.commons.ant.gettext;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Vector;
 
 import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.DirectoryScanner;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.types.Commandline;
+import org.apache.tools.ant.types.FileSet;
 
 public abstract class AbstractGettextGenerateTask extends AbstractGettextTask {
 
@@ -61,6 +67,38 @@ public abstract class AbstractGettextGenerateTask extends AbstractGettextTask {
     public void setOutputDirectory(String outputDirectory) {
         this.outputDirectory = outputDirectory;
     }
+    
+    protected Vector poFiles = new Vector();
+    public void addFileSet(FileSet fileset) {
+    	poFiles.add(fileset);
+    }
+
+    
+    protected String[] getPoFiles() {
+    	List files = new ArrayList();
+    	if (!poFiles.isEmpty()) {
+    		for (Iterator i = poFiles.iterator(); i.hasNext();) {
+    			FileSet fileSet = (FileSet) i.next();
+    			DirectoryScanner scanner = fileSet.getDirectoryScanner(getProject());
+                String names[] = scanner.getIncludedFiles();
+                File parent = fileSet.getDir(getProject());
+                String parentPath = getParentPath(parent, getLocation());
+                for (int j = 0; j < names.length; j++) {
+                	files.add(getAbsolutePath(names[j], parentPath));
+                }
+    		}
+    		return (String[]) files.toArray(new String[0]);
+    	}
+    	else {
+    		DirectoryScanner ds = new DirectoryScanner();
+    		ds.setBasedir(poDirectory);
+    		ds.setIncludes(new String[] {"**/*.po"});
+    		ds.scan();
+    		return ds.getIncludedFiles();
+    	}
+    }
+    
+
     
     protected void checkPreconditions() {
     	if (outputDirectory == null) {

@@ -11,7 +11,6 @@ import java.util.Vector;
 
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.DirectoryScanner;
-import org.apache.tools.ant.Location;
 import org.apache.tools.ant.types.Commandline;
 import org.apache.tools.ant.types.FileSet;
 
@@ -21,6 +20,7 @@ public class GettextExtractKeysTask extends AbstractGettextTask {
     public void addFileSet(FileSet fileset) {
         filesets.add(fileset);
     }
+    
     private String xgettextCommand = "xgettext";
     public void setXgettextCommand(String xgettextCommand) {
         this.xgettextCommand = xgettextCommand;
@@ -78,16 +78,7 @@ public class GettextExtractKeysTask extends AbstractGettextTask {
         runCommandLineAndWait(cl);
     }
     
-    private String getParentPath(File parent, Location location) {
-    	String locationPath = new File(location.getFileName()).getParent();
-    	if (parent.getAbsolutePath().startsWith(locationPath)) {
-        	// + 1 for path separator
-			return parent.getAbsolutePath().substring(locationPath.length() + 1);
-		}
-		return parent.getAbsolutePath();
-	}
-
-	private File createListFile(List files) {
+    private File createListFile(List files) {
         try {
             File listFile = File.createTempFile("srcfiles", null);
             log(listFile.getAbsolutePath());
@@ -109,10 +100,6 @@ public class GettextExtractKeysTask extends AbstractGettextTask {
             log(e.getMessage());
             return null;
         }
-    }
-    
-    private String getAbsolutePath(String path, String parentPath) {
-        return parentPath + File.separator + path;
     }
     
 }

@@ -4,6 +4,11 @@ import java.io.File;
 
 import junit.framework.TestCase;
 
+import org.apache.tools.ant.Location;
+import org.apache.tools.ant.Project;
+import org.apache.tools.ant.types.FileSet;
+import org.apache.tools.ant.types.selectors.FilenameSelector;
+
 public class GettextDistTaskTest extends TestCase {
 
 	public void testFileMatchesPercentage() throws Exception {
@@ -64,5 +69,56 @@ public class GettextDistTaskTest extends TestCase {
 		task.setMoreOrLess("greaterOrEqual");
 		assertTrue(task.fileMatchesPercentage(file));
 	}
+	
+	private GettextDistTask getTask() throws Exception {
+		
+		File file = new File(getClass().getResource("en.po").toURI());
+		assertTrue(file.isFile());
+		
+		Project project = new Project();
+		project.init();
+		
+		Location location = new Location(file.getParentFile().getAbsolutePath());
+		
+		GettextDistTask task = new GettextDistTask();
+		task.setProject(project);
+		task.setLocation(location);
+		
+		return task;
+	}
+	
+	public void testGetPoFiles() throws Exception {
+		
+		File file = new File(getClass().getResource("en.po").toURI());
+		assertTrue(file.isFile());
+		
+		GettextDistTask task = getTask();
+		
+		FileSet fileSet = new FileSet();
+		fileSet.setDir(file.getParentFile());
+		FilenameSelector selector = new FilenameSelector();
+		selector.setName("**/*.po");
+		fileSet.add(selector);
+		task.addFileSet(fileSet);
 
+		String[] files = task.getPoFiles();
+		assertEquals(4, files.length);
+	}
+	
+	public void testGetSinglePoFile() throws Exception {
+		File file = new File(getClass().getResource("en.po").toURI());
+		assertTrue(file.isFile());
+		
+		GettextDistTask task = getTask();
+		
+		FileSet fileSet = new FileSet();
+		fileSet.setDir(file.getParentFile());
+		FilenameSelector selector = new FilenameSelector();
+		selector.setName("en.po");
+		fileSet.add(selector);
+		task.addFileSet(fileSet);
+		
+		String[] files = task.getPoFiles();
+		assertEquals(1, files.length);
+	}
 }

@@ -1,7 +1,9 @@
 package org.xnap.commons.ant.gettext;
 
+import java.io.File;
 import java.io.IOException;
 
+import org.apache.tools.ant.Location;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.types.Commandline;
@@ -39,4 +41,19 @@ public class AbstractGettextTask extends Task {
     	}
     	return -1;
     }
+    
+
+    protected String getParentPath(File parent, Location location) {
+    	String locationPath = new File(location.getFileName()).getParent();
+    	if (parent.getAbsolutePath().startsWith(locationPath)) {
+        	// + 1 for path separator
+			return parent.getAbsolutePath().substring(locationPath.length() + 1);
+		}
+		return parent.getAbsolutePath();
+	}
+    
+    protected String getAbsolutePath(String path, String parentPath) {
+        return parentPath + File.separator + path;
+    }
+    
 }

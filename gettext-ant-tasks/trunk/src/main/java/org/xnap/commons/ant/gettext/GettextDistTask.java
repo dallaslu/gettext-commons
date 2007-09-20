@@ -8,7 +8,6 @@ import java.text.MessageFormat;
 import java.util.StringTokenizer;
 
 import org.apache.tools.ant.BuildException;
-import org.apache.tools.ant.DirectoryScanner;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.types.Commandline;
 
@@ -29,13 +28,8 @@ public class GettextDistTask extends AbstractGettextGenerateTask {
     	checkPreconditions();
     	
         CommandlineFactory cf = getCommandlineFactory();
+        String[] files = getPoFiles();
         
-        DirectoryScanner ds = new DirectoryScanner();
-        ds.setBasedir(poDirectory);
-        ds.setIncludes(new String[] {"**/*.po"});
-        ds.scan();
-        
-        String[] files = ds.getIncludedFiles();
         for (int i = 0; i < files.length; i++) {
             log("Processing " + files[i]);
             if (percentage > 0) {
