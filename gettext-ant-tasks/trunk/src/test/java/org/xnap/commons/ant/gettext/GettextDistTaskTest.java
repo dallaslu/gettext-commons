@@ -70,6 +70,19 @@ public class GettextDistTaskTest extends TestCase {
 		assertTrue(task.fileMatchesPercentage(file));
 	}
 	
+	public void testFileWithCompleteTranslations() throws Exception {
+		File file = new File(getClass().getResource("fullytranslated.po").toURI());
+		assertTrue(file.isFile());
+		
+		GettextDistTask task = new GettextDistTask();
+		task.setPercentage(100);
+		
+		assertTrue(task.fileMatchesPercentage(file));
+		
+		task.setMoreOrLess("less");
+		assertFalse(task.fileMatchesPercentage(file));
+	}
+	
 	private GettextDistTask getTask() throws Exception {
 		
 		File file = new File(getClass().getResource("en.po").toURI());
@@ -102,7 +115,7 @@ public class GettextDistTaskTest extends TestCase {
 		task.addFileSet(fileSet);
 
 		String[] files = task.getPoFiles();
-		assertEquals(4, files.length);
+		assertEquals(5, files.length);
 	}
 	
 	public void testGetSinglePoFile() throws Exception {

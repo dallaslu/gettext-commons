@@ -71,9 +71,6 @@ public class GettextDistTask extends AbstractGettextGenerateTask {
 			}
 			
 			StringTokenizer st = new StringTokenizer(output);
-			if (st.countTokens() < 6) {
-				throw new BuildException("unexpected output: " + builder.toString());
-			}
 
 			int total = 0;
 			int translated = Integer.parseInt(st.nextToken());
