@@ -62,3 +62,15 @@ This target generates a default message bundle where the translation equals the 
   <gettext-generate-default targetBundle="org.mynamespace.i18n.Messages" outputDirectory="po" potfile="po/messages.pot"/>
 </target>
 }}}
+
+=== Generate bundles ===
+
+This target generates the Java ResourceBundles from the translation po files only taking into account languages into account that have been translated more than 65%. The generated class files are then packed into a Jar file.
+
+{{{
+<target name="generate-bundles-jar" description="Generates Java ResourceBundles and jars them up" depends="init.gettext">
+  <gettext-dist targetBundle="org.mynamespace.i18n.Messages" poDirectory="po" outputDirectory="po" percentage="65"/>
+  <jar destfile="lib/messages.jar" basedir="po"
+    includes="org/**"/>
+</target>
+}}}
