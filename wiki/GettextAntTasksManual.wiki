@@ -48,7 +48,17 @@ This target extracts all the keys from the Java source files and stores them in 
 This target merges the newly extracted keys into the existing po translation files.
 
 {{{
-<target name="merge-messages" description="Merges newly extracted messages into existing po files">
+<target name="merge-messages" description="Merges newly extracted messages into existing po files" depends="init.gettext">
   <gettext-merge keysFile="messages.pot" poDirectory="po"/>
+</target>
+}}}
+
+=== Generating a default bundle ===
+
+This target generates a default message bundle where the translation equals the message to be translated.
+
+{{{
+<target name="generate-default-bundle" description="Generates a default bundle" depends="init.gettext">
+  <gettext-generate-default targetBundle="org.mynamespace.i18n.Messages" outputDirectory="po" potfile="po/messages.pot"/>
 </target>
 }}}
