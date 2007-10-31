@@ -49,6 +49,6 @@ This target merges the newly extracted keys into the existing po translation fil
 
 {{{
 <target name="merge-messages" description="Merges newly extracted messages into existing po files">
-<gettext-merge keysFile="messages.pot" poDirectory="po"/>
+  <gettext-merge keysFile="messages.pot" poDirectory="po"/>
 </target>
 }}}
