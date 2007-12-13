@@ -14,9 +14,14 @@ public class AbstractGettextTask extends Task {
     /**
      * PO directory.
      */
-    protected String poDirectory;
+    protected File poDirectory;
     public void setPoDirectory(String poDirectory) {
-        this.poDirectory = poDirectory;
+    	 this.poDirectory = new File(this.getOwningTarget().getProject().getBaseDir(), poDirectory);
+    	 try {
+    		 // Make the path prettier
+    		 this.poDirectory = this.poDirectory.getCanonicalFile();
+    	 } catch (IOException e) {
+    	 }
     }
 
     /**
@@ -29,7 +34,7 @@ public class AbstractGettextTask extends Task {
     
     protected void runCommandLineAndWait(Commandline cl) {
     	try {
-    		Process p = Runtime.getRuntime().exec(cl.getCommandline());
+    		Process p = Runtime.getRuntime().exec(cl.getCommandline(), null, getOwningTarget().getProject().getBaseDir());
     		new StreamConsumer(p.getInputStream(), this).start();
     		new StreamConsumer(p.getErrorStream(), this).start();
     		int exitCode = p.waitFor();
