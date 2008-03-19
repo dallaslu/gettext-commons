@@ -104,6 +104,14 @@ poedit po/de.po
 msgfmt --java2 -d src/conf -r app.i18n.Messages -l de po/de.po
 }}}
 
+This commands have to  be run in the root directory of the project as the class path (in this exdample app/i18n/Messages_de) will be written into the ResourceBundle class file. By opening a .class file in a class viewer, like ht, it can be checked if something doesn't work. 
+
+If the .java files are not all in the same directory, you can search for them: 
+
+{{{ 
+xgettext -ktrc -ktr -kmarktr -ktrn:1,2 -o po/keys.pot `find . -name "*.java"`
+}}}
+
 = Loading Resource Bundles =
 
 In order to specify the name of the resource bundles you want to use, you create an i18n.properties file and place it in your application's toplevel package. All subpackages will use this configuration file unless they find a different one on the way up in the package hierarchy.
