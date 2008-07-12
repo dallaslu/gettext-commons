@@ -104,12 +104,22 @@ poedit po/de.po
 msgfmt --java2 -d src/conf -r app.i18n.Messages -l de po/de.po
 }}}
 
-This commands have to  be run in the root directory of the project as the class path (in this exdample app/i18n/Messages_de) will be written into the ResourceBundle class file. By opening a .class file in a class viewer, like ht, it can be checked if something doesn't work. 
+This commands have to  be run in the root directory of the project as the class path (in this exdample app/i18n/Messages_de) will be written into the ResourceBundle class file. You can check the path by opening the class file in a hex editor like ht (command name is hte); it is located at the beginning of the file directly after the [http://en.wikipedia.org/wiki/Magic_number_(programming) magic number] `as0xcafebabe`.
 
 If the .java files are not all in the same directory, you can search for them: 
 
 {{{ 
-xgettext -ktrc -ktr -kmarktr -ktrn:1,2 -o po/keys.pot `find . -name "*.java"`
+xgettext -ktrc -ktr -kmarktr -ktrn:1,2 -o po/keys.pot $(find . -name "*.java")
+}}}
+
+The `.po` files have to be created if they don't exist already. 
+{{{
+touch po/de.po
+}}}
+
+`msgfmt` will create the file `app.i18n.Messages_de.class`. It may have to be loaded like that in a class called `SampleClass`:
+{{{
+I18n i18n = I18nFactory.getI18n(SampleClass.class, "app.i18n.Messages", java.util.Locale.GERMAN);
 }}}
 
 = Loading Resource Bundles =
