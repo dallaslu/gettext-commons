@@ -65,7 +65,7 @@ This target generates a default message bundle where the translation equals the 
 
 === Generate bundles ===
 
-This target generates the Java ResourceBundles from the translation po files only taking into account languages into account that have been translated more than 65%. The generated class files are then packed into a Jar file.
+This target generates the Java ResourceBundles from the translation po files only taking into account languages that have been translated more than 65%. The generated class files are then packed into a Jar file.
 
 {{{
 <target name="generate-bundles-jar" description="Generates Java ResourceBundles and jars them up" depends="init.gettext">
