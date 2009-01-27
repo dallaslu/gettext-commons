@@ -51,11 +51,16 @@ public class AbstractGettextTask extends Task {
 
     protected String getParentPath(File parent, Location location) {
     	String locationPath = new File(location.getFileName()).getParent();
-    	if (parent.getAbsolutePath().startsWith(locationPath)) {
-        	// + 1 for path separator
-			return parent.getAbsolutePath().substring(locationPath.length() + 1);
+    	String parentPath = parent.getAbsolutePath();
+    	if (parentPath.startsWith(locationPath)) {
+    		if (parentPath.length() == locationPath.length()) {
+    			return "";
+    		} else {
+    			// + 1 for path separator
+    			return parentPath.substring(locationPath.length() + 1);
+    		}
 		}
-		return parent.getAbsolutePath();
+		return parentPath;
 	}
     
     protected String getAbsolutePath(String path, String parentPath) {

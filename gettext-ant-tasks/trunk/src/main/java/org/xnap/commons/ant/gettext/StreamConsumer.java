@@ -29,11 +29,13 @@ public class StreamConsumer {
 					if (task.getProject() != null) {
 						task.log(e.getLocalizedMessage(), Project.MSG_ERR);
 					}
+				} finally {
 					try {
 						bufferedReader.close();
-					} catch (IOException e1) {
+					} catch (IOException e) {
 					}
 				}
+				
 			}
 		});
 		thread.setDaemon(true);

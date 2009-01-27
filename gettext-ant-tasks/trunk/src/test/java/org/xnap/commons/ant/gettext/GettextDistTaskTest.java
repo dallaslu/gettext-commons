@@ -5,7 +5,6 @@ import java.io.File;
 import junit.framework.TestCase;
 
 import org.apache.tools.ant.Location;
-import org.apache.tools.ant.Project;
 import org.apache.tools.ant.types.FileSet;
 import org.apache.tools.ant.types.selectors.FilenameSelector;
 
@@ -88,15 +87,13 @@ public class GettextDistTaskTest extends TestCase {
 		File file = new File(getClass().getResource("en.po").toURI());
 		assertTrue(file.isFile());
 		
-		Project project = new Project();
-		project.init();
-		
 		Location location = new Location(file.getParentFile().getAbsolutePath());
 		
 		GettextDistTask task = new GettextDistTask();
-		task.setProject(project);
+		
 		task.setLocation(location);
 		
+		TestUtils.setTargetAndProject(task);
 		return task;
 	}
 	
