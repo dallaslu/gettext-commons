@@ -31,7 +31,7 @@ public class GettextExtractKeysTask extends AbstractGettextTask {
         this.encoding = encoding;
     }
     
-    private String keywords = "-ktrc -ktr -kmarktr -ktrn:1,2";
+    private String keywords = "-ktrc:1c,2 -ktrnc:1c,2,3 -ktr -kmarktr -ktrn:1,2 -k";
     public void setKeywords(String keywords) {
         this.keywords = keywords;
     }
