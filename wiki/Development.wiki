@@ -2,7 +2,7 @@
 
 = Resources =
 
- * Mailinglist
+ * [http://groups.google.com/group/gettext-commons-devel?hl=en Mailing list]
 
 = Building =
 
