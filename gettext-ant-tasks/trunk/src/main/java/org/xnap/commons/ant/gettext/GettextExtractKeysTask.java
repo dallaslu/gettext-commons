@@ -55,10 +55,10 @@ public class GettextExtractKeysTask extends AbstractGettextTask {
             DirectoryScanner scanner = fileSet.getDirectoryScanner(getProject());
             String names[] = scanner.getIncludedFiles();
             File parent = fileSet.getDir(getProject());
-            String parentPath = getParentPath(parent, getLocation());
+            String parentPath = GettextUtils.getRelativePath(parent, getLocation());
             log(parentPath);
             for (int j = 0; j < names.length; j++) {
-            	files.add(getAbsolutePath(names[j], parentPath));
+            	files.add(GettextUtils.createAbsolutePath(parentPath, names[j]));
             }
         }
         File file = createListFile(files);

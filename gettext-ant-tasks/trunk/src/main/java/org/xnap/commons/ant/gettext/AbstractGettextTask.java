@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 
 import org.apache.tools.ant.BuildException;
-import org.apache.tools.ant.Location;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.types.Commandline;
@@ -47,24 +46,6 @@ public class AbstractGettextTask extends Task {
     	} catch (InterruptedException e) {
     		log("Process was interrupted: " + e.getMessage(), Project.MSG_ERR);
     	}
-    }
-
-    protected String getParentPath(File parent, Location location) {
-    	String locationPath = new File(location.getFileName()).getParent();
-    	String parentPath = parent.getAbsolutePath();
-    	if (parentPath.startsWith(locationPath)) {
-    		if (parentPath.length() == locationPath.length()) {
-    			return "";
-    		} else {
-    			// + 1 for path separator
-    			return parentPath.substring(locationPath.length() + 1);
-    		}
-		}
-		return parentPath;
-	}
-    
-    protected String getAbsolutePath(String path, String parentPath) {
-        return parentPath + File.separator + path;
     }
     
 }

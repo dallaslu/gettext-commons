@@ -1,9 +1,12 @@
 package org.xnap.commons.ant.gettext;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
+
+import org.apache.tools.ant.Location;
 
 public class GettextUtils {
 
@@ -48,5 +51,33 @@ public class GettextUtils {
         
         return sb.toString();
     }
+
+    /**
+     * Returns <code>file</code>'s path relative to <code>location</code>
+     * 
+     * If <code>file</code> and <code>location</code> have a common prefix, this method will
+     * return a path to <code>file</code> that is relative to <code>location</code>
+     * 
+     * Examples:
+     * 
+     * If parent is the parent of location it will return "", so that
+     */
+	public static String getRelativePath(File file, Location location) {
+		String locationPath = new File(location.getFileName()).getParent();
+		String parentPath = file.getAbsolutePath();
+		if (parentPath.startsWith(locationPath)) {
+			if (parentPath.length() == locationPath.length()) {
+				return "";
+			} else {
+				// + 1 for path separator
+				return parentPath.substring(locationPath.length() + 1);
+			}
+		}
+		return parentPath;
+	}
+
+	public static String createAbsolutePath(String parentPath, String path) {
+	    return parentPath + File.separator + path;
+	}
 
 }
