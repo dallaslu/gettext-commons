@@ -1,4 +1,5 @@
 #summary This page explains how to edit your Maven 2 pom.xml file use the Gettext Commons Maven repository.
+#labels Featured
 
 = Editing your pom.xml file =
 
