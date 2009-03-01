@@ -1,0 +1,26 @@
+#summary This page explains how to edit your Maven 2 pom.xml file use the Gettext Commons Maven repositor.
+
+= Editing your pom.xml file =
+
+Add the following lines to your pom.xml file:
+
+{{{
+<project>
+ ...
+ <dependencies> 
+  ...
+  <dependency>
+      <groupId>org.xnap.commons</groupId>
+      <artifactId>gettext-commons</artifactId>
+      <version>0.9.6</version>
+    </dependency>
+  </dependencies>
+  ...
+  <repositories>
+    ...
+    <repository>
+      <id>gettext-commons-site</id>
+      <url>http://gettext-commons.googlecode.com/svn/maven-repository/</url>
+    </repository>
+  </repositories>
+}}}
