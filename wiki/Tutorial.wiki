@@ -1,4 +1,5 @@
 #summary This page gives an overview of the Gettext Commons and describes how to integrate the library into existing Java projects.
+#labels Featured
 
 = Requirements =
 
