@@ -20,7 +20,21 @@ public class GettextUtilsTest extends TestCase {
         }
     }
 
-    public void testGetRelativePathWithLocationDirectParent() {
-    	assertEquals("", GettextUtils.getRelativePath(new File("/tmp/test/file"), new Location("/tmp/test/")));
+    public void testGetRelativePathWithLocationsParentSameAsFile() {
+    	assertEquals("", GettextUtils.getRelativePath(new File("/tmp/test/file"), new Location("/tmp/test/file/test")));
+    }
+    
+    public void testGetRelativePathWithLocationsParentAncesortOfFiles() {
+    	assertEquals("test/file", GettextUtils.getRelativePath(new File("/tmp/test/file"), new Location("/tmp/test/")));
+    	assertEquals("file", GettextUtils.getRelativePath(new File("/tmp/test/file"), new Location("/tmp/test/file")));
+    	assertEquals("tmp/test/file", GettextUtils.getRelativePath(new File("/tmp/test/file"), new Location("/etc")));
+    }
+    
+    public void testGetRelativePathWithDifferentPaths() {
+    	assertEquals("/tmp/test/file", GettextUtils.getRelativePath(new File("/tmp/test/file"), new Location("/etc/hello")));
+    }
+    
+    public void testGetRelativePathWithCommonAncestor() {
+    	assertEquals("../test/files", GettextUtils.getRelativePath(new File("/tmp/test/files"), new Location("/tmp/different/dir")));
     }
 }
