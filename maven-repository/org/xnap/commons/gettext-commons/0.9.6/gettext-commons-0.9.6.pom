@@ -131,14 +131,14 @@
 			<id>xnap-commons</id>
 			<name>XNap Commons Site</name>
 			<url>
-			  file://
+			  file:///tmp/
 			</url>
 		</site>
 		<repository>
 			<id>xnap-commons</id>
 			<name>XNap Commons Repository</name>
 			<url>
-			  file://
+			  file:///tmp/
 			</url>
 		</repository>
 	</distributionManagement>
