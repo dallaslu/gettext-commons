@@ -163,7 +163,7 @@ public class DistMojo
         	File target = new File(outputDirectory, basepath + "_" + locale + ".properties");
         	Commandline cl = new Commandline();
        	
-        	cl.setExecutable(msgfmtCmd);
+        	cl.setExecutable(msgcatCmd);
        	
         	cl.createArgument().setValue("--no-location");
         	cl.createArgument().setValue("-p");
