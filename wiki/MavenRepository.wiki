@@ -1,9 +1,25 @@
 #summary This page explains how to edit your Maven 2 pom.xml file use the Gettext Commons Maven repository.
 #labels Featured
 
-= Editing your pom.xml file =
+= Adding the repository =
 
-Add the following lines to your pom.xml file:
+Add the following lines to your pom.xml file to include the Gettext Commons repository:
+
+{{{
+<project>
+  ...
+  <repositories>
+    ...
+    <repository>
+      <id>gettext-commons-site</id>
+      <url>http://gettext-commons.googlecode.com/svn/maven-repository/</url>
+    </repository>
+  </repositories>
+}}}
+
+= Adding the Gettext Commons library =
+
+Add the following lines to your pom.xml file to add the Gettext Commons library as a dependency to your project:
 
 {{{
 <project>
@@ -16,12 +32,19 @@ Add the following lines to your pom.xml file:
       <version>0.9.6</version>
     </dependency>
   </dependencies>
+}}}
+
+= Adding the Maven plugin =
+
+{{{
+<project>
+ ...
+ <dependencies> 
   ...
-  <repositories>
-    ...
-    <repository>
-      <id>gettext-commons-site</id>
-      <url>http://gettext-commons.googlecode.com/svn/maven-repository/</url>
-    </repository>
-  </repositories>
+  <dependency>
+    <groupId>org.xnap.commons</groupId>
+    <artifactId>maven-gettext-plugin</artifactId>
+    <version>1.2.0</version
+  </dependency>
+ </dependencies>
 }}}
