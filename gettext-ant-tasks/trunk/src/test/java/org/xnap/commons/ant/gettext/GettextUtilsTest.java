@@ -1,10 +1,11 @@
 package org.xnap.commons.ant.gettext;
 
 import java.io.File;
-
-import org.apache.tools.ant.Location;
+import java.util.Arrays;
 
 import junit.framework.TestCase;
+
+import org.apache.tools.ant.Location;
 
 public class GettextUtilsTest extends TestCase {
 
@@ -28,6 +29,7 @@ public class GettextUtilsTest extends TestCase {
     	assertEquals("test/file", GettextUtils.getRelativePath(new File("/tmp/test/file"), new Location("/tmp/test/")));
     	assertEquals("file", GettextUtils.getRelativePath(new File("/tmp/test/file"), new Location("/tmp/test/file")));
     	assertEquals("tmp/test/file", GettextUtils.getRelativePath(new File("/tmp/test/file"), new Location("/etc")));
+    	assertEquals("tmp/test/file", GettextUtils.getRelativePath(new File("/tmp/test/file"), new Location("/")));
     }
     
     public void testGetRelativePathWithDifferentPaths() {
@@ -36,5 +38,12 @@ public class GettextUtilsTest extends TestCase {
     
     public void testGetRelativePathWithCommonAncestor() {
     	assertEquals("../test/files", GettextUtils.getRelativePath(new File("/tmp/test/files"), new Location("/tmp/different/dir")));
+    	assertEquals("../../test/files", GettextUtils.getRelativePath(new File("/tmp/test/files"), new Location("/tmp/different/dir/deeper")));
+    	assertEquals("../test/files", GettextUtils.getRelativePath(new File("/tmp/test/files"), new Location("/tmp/different/")));
+    }
+    
+    public void testPrint() {
+    	System.out.println(Arrays.asList(File.listRoots()));
+    	System.out.println(new File("/tmp/test/").getAbsolutePath());
     }
 }

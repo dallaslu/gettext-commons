@@ -53,7 +53,7 @@ public class GettextUtils {
     }
 
     /**
-     * Returns <code>file</code>'s path relative to <code>location</code>
+     * Returns <code>file</code>'s path relative to <code>location</code>'s parent folder.
      * 
      * If <code>file</code> and <code>location</code> have a common prefix, this method will
      * return a path to <code>file</code> that is relative to <code>location</code>
@@ -63,14 +63,14 @@ public class GettextUtils {
      * If parent is the parent of location it will return "", so that
      */
 	public static String getRelativePath(File file, Location location) {
-		String locationPath = new File(location.getFileName()).getParent();
+		File locationParent = new File(location.getFileName()).getParentFile();
+		String locationParentPath = locationParent.getAbsolutePath();
 		String parentPath = file.getAbsolutePath();
-		if (parentPath.startsWith(locationPath)) {
-			if (parentPath.length() == locationPath.length()) {
+		if (parentPath.startsWith(locationParentPath)) {
+			if (parentPath.length() == locationParentPath.length()) {
 				return "";
 			} else {
-				// + 1 for path separator
-				return parentPath.substring(locationPath.length() + 1);
+				return parentPath.substring(getPathWithSeparator(locationParentPath).length());
 			}
 		}
 		return parentPath;
@@ -80,4 +80,7 @@ public class GettextUtils {
 	    return parentPath + File.separator + path;
 	}
 
+	private static String getPathWithSeparator(String path) {
+		return path.endsWith(File.separator) ? path : path + File.separator;
+	}
 }
