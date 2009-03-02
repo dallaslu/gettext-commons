@@ -63,17 +63,36 @@ public class GettextUtils {
      * If parent is the parent of location it will return "", so that
      */
 	public static String getRelativePath(File file, Location location) {
+		String filePath = file.getAbsolutePath();
 		File locationParent = new File(location.getFileName()).getParentFile();
+		if (locationParent == null) {
+			return filePath; 
+		}
+
 		String locationParentPath = locationParent.getAbsolutePath();
-		String parentPath = file.getAbsolutePath();
-		if (parentPath.startsWith(locationParentPath)) {
-			if (parentPath.length() == locationParentPath.length()) {
+		if (filePath.startsWith(locationParentPath)) {
+			if (filePath.length() == locationParentPath.length()) {
 				return "";
 			} else {
-				return parentPath.substring(getPathWithSeparator(locationParentPath).length());
+				return filePath.substring(getPathWithSeparator(locationParentPath).length());
 			}
 		}
-		return parentPath;
+		
+		int commonPrefixLength = getCommonPrefix(filePath, locationParentPath).length();
+		if (commonPrefixLength > 0) {
+			String locationSubPath = locationParentPath.substring(commonPrefixLength);
+			// + 1 for the one folder you have to back out of, since the last / is part of the common path
+			int folders = countOccurrences(locationSubPath, File.separatorChar) + 1;
+			String fileSubPath = filePath.substring(commonPrefixLength);
+			StringBuilder builder = new StringBuilder();
+			for (int i = 0; i < folders; i++) {
+				builder.append("..").append(File.separatorChar);
+			}
+			builder.append(fileSubPath);
+			return builder.toString();
+		}
+		
+		return filePath;
 	}
 
 	public static String createAbsolutePath(String parentPath, String path) {
@@ -82,5 +101,25 @@ public class GettextUtils {
 
 	private static String getPathWithSeparator(String path) {
 		return path.endsWith(File.separator) ? path : path + File.separator;
+	}
+	
+	static String getCommonPrefix(String path1, String path2) {
+		int length = Math.min(path1.length(), path2.length());
+		for (int i = 0; i < length; i++) {
+			if (path1.charAt(i) != path2.charAt(i)) {
+				return path1.substring(0, i);
+			}
+		}
+		return path1.substring(0, length);
+	}
+	
+	static int countOccurrences(String text, char character) {
+		int count = 0;
+		for (int i = 0; i < text.length(); i++) {
+			if (text.charAt(i) == character) {
+				++count;
+			}
+		}
+		return count;
 	}
 }

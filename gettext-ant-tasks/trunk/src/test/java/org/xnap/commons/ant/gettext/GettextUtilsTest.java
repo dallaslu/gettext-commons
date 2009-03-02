@@ -1,7 +1,6 @@
 package org.xnap.commons.ant.gettext;
 
 import java.io.File;
-import java.util.Arrays;
 
 import junit.framework.TestCase;
 
@@ -29,21 +28,24 @@ public class GettextUtilsTest extends TestCase {
     	assertEquals("test/file", GettextUtils.getRelativePath(new File("/tmp/test/file"), new Location("/tmp/test/")));
     	assertEquals("file", GettextUtils.getRelativePath(new File("/tmp/test/file"), new Location("/tmp/test/file")));
     	assertEquals("tmp/test/file", GettextUtils.getRelativePath(new File("/tmp/test/file"), new Location("/etc")));
-    	assertEquals("tmp/test/file", GettextUtils.getRelativePath(new File("/tmp/test/file"), new Location("/")));
+    	assertEquals("/tmp/test/file", GettextUtils.getRelativePath(new File("/tmp/test/file"), new Location("/")));
     }
     
     public void testGetRelativePathWithDifferentPaths() {
-    	assertEquals("/tmp/test/file", GettextUtils.getRelativePath(new File("/tmp/test/file"), new Location("/etc/hello")));
+    	assertEquals("../tmp/test/file", GettextUtils.getRelativePath(new File("/tmp/test/file"), new Location("/etc/hello")));
     }
     
     public void testGetRelativePathWithCommonAncestor() {
     	assertEquals("../test/files", GettextUtils.getRelativePath(new File("/tmp/test/files"), new Location("/tmp/different/dir")));
     	assertEquals("../../test/files", GettextUtils.getRelativePath(new File("/tmp/test/files"), new Location("/tmp/different/dir/deeper")));
-    	assertEquals("../test/files", GettextUtils.getRelativePath(new File("/tmp/test/files"), new Location("/tmp/different/")));
+    	assertEquals("../../../tmp/test/files", GettextUtils.getRelativePath(new File("/tmp/test/files"), new Location("/etc/different/dir/deeper")));
+    	assertEquals("test/files", GettextUtils.getRelativePath(new File("/tmp/test/files"), new Location("/tmp/different/")));
     }
     
-    public void testPrint() {
-    	System.out.println(Arrays.asList(File.listRoots()));
-    	System.out.println(new File("/tmp/test/").getAbsolutePath());
+    public void testGetCommonPrefix() {
+    	assertEquals("", GettextUtils.getCommonPrefix("hello", "world"));
+    	assertEquals("hello", GettextUtils.getCommonPrefix("hello", "hello"));
+    	assertEquals("hello", GettextUtils.getCommonPrefix("hello", "hello world"));
+    	assertEquals("", GettextUtils.getCommonPrefix("", "world"));
     }
 }
