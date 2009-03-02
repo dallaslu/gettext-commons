@@ -4,7 +4,7 @@
   <groupId>org.xnap.commons</groupId>
   <artifactId>maven-gettext-plugin</artifactId>
   <packaging>maven-plugin</packaging>
-  <version>1.1</version>
+  <version>1.2.0</version>
   <name>Maven Gettext Plugin</name>
   <url>http://xnap-commons.sourceforge.net/m2/maven-gettext-plugin/</url>
   <developers>
@@ -14,15 +14,24 @@
       <url>http://www.taval.de</url>
       <organization>XNap Commons Team</organization>
       <roles>
-		  <role>Project Manager</role> 
-		  <role>Developer</role> 
-		  <role>Creator</role> 
-	  </roles>
+	<role>Project Manager</role> 
+	<role>Developer</role> 
+	<role>Creator</role> 
+      </roles>
     </developer>
-	<developer>
+    <developer>
       <id>squig</id>
       <name>Steffen Pingel</name>
       <url>http://steffenpingel.de</url>
+      <organization>XNap Commons Team</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+    </developer>
+    <developer>
+      <id>bergerfx</id>
+      <name>Felix Berger</name>
+      <url>http://felix.limespot.com/blog</url>
       <organization>XNap Commons Team</organization>
       <roles>
         <role>Developer</role>
@@ -68,9 +77,9 @@
     </dependency>
   </dependencies>
   <scm>
-    <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/xnap-commons:maven-plugins/m2/maven-gettext-plugin</connection>
-    <developerConnection>scm:cvs:ext:${maven.username}@cvs.sf.net:/cvsroot/xnap-commons:maven-plugins/m2/maven-gettext-plugin</developerConnection>
-    <url>http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/xnap-commons/maven-plugins/m2/maven-gettext-plugin/</url>
+    <connection>scm:svn:http://gettext-commons.googlecode.com/svn/maven2-plugins/trunk</connection>
+    <developerConnection>scm:svn:http://gettext-commons.googlecode.com/svn/maven2-plugins/trunk</developerConnection>
+    <url>http://gettext-commons.googlecode.com/svn/maven2-plugins/trunk</url>
  </scm>
   <build>
     <pluginManagement>
@@ -101,18 +110,18 @@
     <site>
       <id>xnap-commons</id>
       <name>Maven Gettext Plugin Site</name>
-      <url>scp://shell.sf.net/home/groups/x/xn/xnap-commons/htdocs/m2/maven-gettext-plugin/</url>
+      <url>file:///tmp/</url>
     </site>
-	<repository>
+    <repository>
       <id>xnap-commons</id>
       <name>XNap Commons Repository</name>
-      <url>scp://shell.sf.net/home/groups/x/xn/xnap-commons/htdocs/repository/</url>
-	</repository>
-	<snapshotRepository>
+      <url>file:///tmp/</url>
+    </repository>
+    <snapshotRepository>
       <id>xnap-commons</id>
       <name>XNap Commons Snapshots Repository</name>
       <url>scp://shell.sf.net/home/groups/x/xn/xnap-commons/htdocs/repository/</url>
-	</snapshotRepository>
+    </snapshotRepository>
   </distributionManagement>
   <reporting>
     <plugins>
