@@ -36,7 +36,7 @@ Add the following lines to your pom.xml file to add the Gettext Commons library 
 
 = Adding the Maven plugin =
 
-Add the following lines to your pom.xml file to make use of the maven gettext plugin for generating messages templates and deploying message bundles.
+Add the following lines to your pom.xml file to make use of the maven gettext plugin for generating messages templates and deploying messages bundles.
 
 {{{
 <project>
