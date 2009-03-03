@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>gettext-ant-tasks</groupId>
   <artifactId>gettext-ant-tasks</artifactId>
-  <version>0.9.5</version>
+  <version>0.9.6</version>
   <description>Provides ant tasks to use gettext for Java projects.</description>
   <dependencies>
     <dependency>
