@@ -44,6 +44,7 @@ public class GettextUtilsTest extends TestCase {
     	assertEquals("ff", GettextUtils.getRelativePath(new File("/tmp/test/files/ff"), new Location("/tmp/test/files/fff")));
     	assertEquals("../ff", GettextUtils.getRelativePath(new File("/tmp/test/files/ff"), new Location("/tmp/test/files/fff/test")));
     	assertEquals("../fft", GettextUtils.getRelativePath(new File("/tmp/test/files/fft"), new Location("/tmp/test/files/fff/test")));
+    	assertEquals("../test/files/fft", GettextUtils.getRelativePath(new File("/tmp/test/files/fft"), new Location("/tmpp/test")));
     }
     
     public void testGetCommonPrefix() {
