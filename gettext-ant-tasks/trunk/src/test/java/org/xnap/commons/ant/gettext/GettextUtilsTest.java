@@ -40,12 +40,18 @@ public class GettextUtilsTest extends TestCase {
     	assertEquals("../../test/files", GettextUtils.getRelativePath(new File("/tmp/test/files"), new Location("/tmp/different/dir/deeper")));
     	assertEquals("../../../tmp/test/files", GettextUtils.getRelativePath(new File("/tmp/test/files"), new Location("/etc/different/dir/deeper")));
     	assertEquals("test/files", GettextUtils.getRelativePath(new File("/tmp/test/files"), new Location("/tmp/different/")));
+    	assertEquals("files", GettextUtils.getRelativePath(new File("/tmp/test/files"), new Location("/tmp/test/fi")));
+    	assertEquals("ff", GettextUtils.getRelativePath(new File("/tmp/test/files/ff"), new Location("/tmp/test/files/fff")));
+    	assertEquals("../ff", GettextUtils.getRelativePath(new File("/tmp/test/files/ff"), new Location("/tmp/test/files/fff/test")));
+    	assertEquals("../fft", GettextUtils.getRelativePath(new File("/tmp/test/files/fft"), new Location("/tmp/test/files/fff/test")));
     }
     
     public void testGetCommonPrefix() {
-    	assertEquals("", GettextUtils.getCommonPrefix("hello", "world"));
-    	assertEquals("hello", GettextUtils.getCommonPrefix("hello", "hello"));
-    	assertEquals("hello", GettextUtils.getCommonPrefix("hello", "hello world"));
-    	assertEquals("", GettextUtils.getCommonPrefix("", "world"));
+    	assertEquals("", GettextUtils.getCommonPathPrefix("hello", "world"));
+    	assertEquals("hello", GettextUtils.getCommonPathPrefix("hello", "hello"));
+    	assertEquals("", GettextUtils.getCommonPathPrefix("hello", "hello world"));
+    	assertEquals("", GettextUtils.getCommonPathPrefix("", "world"));
+    	assertEquals("hello/", GettextUtils.getCommonPathPrefix("hello/test-1", "hello/test-2"));
+    	assertEquals("/hello/", GettextUtils.getCommonPathPrefix("/hello/test-1", "/hello/test-2"));
     }
 }

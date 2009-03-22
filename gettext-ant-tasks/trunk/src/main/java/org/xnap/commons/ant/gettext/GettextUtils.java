@@ -78,7 +78,7 @@ public class GettextUtils {
 			}
 		}
 		
-		int commonPrefixLength = getCommonPrefix(filePath, locationParentPath).length();
+		int commonPrefixLength = getCommonPathPrefix(filePath, locationParentPath).length();
 		if (commonPrefixLength > 0) {
 			String locationSubPath = locationParentPath.substring(commonPrefixLength);
 			// + 1 for the one folder you have to back out of, since the last / is part of the common path
@@ -103,14 +103,27 @@ public class GettextUtils {
 		return path.endsWith(File.separator) ? path : path + File.separator;
 	}
 	
-	static String getCommonPrefix(String path1, String path2) {
+
+	static String getCommonPathPrefix(String path1, String path2) {
 		int length = Math.min(path1.length(), path2.length());
+		int lastPathSeparator = -1;
 		for (int i = 0; i < length; i++) {
+			if (path1.charAt(i) == File.separatorChar) {
+				lastPathSeparator = i;
+			}
 			if (path1.charAt(i) != path2.charAt(i)) {
-				return path1.substring(0, i);
+				if (path1.charAt(i) == File.separatorChar || path2.charAt(i) == File.separatorChar) {
+					return path1.substring(0, i);
+				} else {
+					return path1.substring(0, lastPathSeparator + 1);
+				}
 			}
 		}
-		return path1.substring(0, length);
+		if (path1.length() == path2.length()) {
+			return path1;
+		} else { 
+			return path1.substring(0, lastPathSeparator + 1);
+		}
 	}
 	
 	static int countOccurrences(String text, char character) {
