@@ -25,11 +25,15 @@ System.out.println(i18n.trn("Copied file.", "Copied files.", 4));
 // will print "Copied files."
 }}}
 
-In addition there are convenience methods that use the Java API MessageFormat.format() for substitution:
+In addition there are convenience methods that use the Java API [http://java.sun.com/javase/6/docs/api/java/text/MessageFormat.html#patterns MessageFormat.format()] for substitution:
 
 {{{
 System.out.println(i18n.tr("Folder: {0}", new File("/home/xnap-commons"));
-System.out.println(i18n.trn("{0} file", "{0} files", 5, new Integer(5)));
+System.out.println(i18n.tr("It''s {0} o''clock.", 6));
+// Will print "It's 6 o'clock". Note the double apostrophes.
+// See Java documentation about java.text.MessageFormat.
+System.out.println(i18n.trn("Night {0} of 1001", "More than 1001 nights! {0} already!", 1002, new Integer(1024)));
+// Will print "More than 1001 nights! 1024 already!"
 }}}
 
 And sometimes it is necessary to provide different translations of the same word as some words may have multiple meanings in the native language the program is written but not in other languages:
