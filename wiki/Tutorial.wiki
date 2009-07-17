@@ -97,7 +97,7 @@ Here is a simple example of running the gettext commands:
 
 {{{
 # extract keys
-xgettext -ktrc -ktr -kmarktr -ktrn:1,2 -o po/keys.pot src/*.java 
+xgettext -ktrc:1c,2 -ktrnc:1c,2,3 -ktr -kmarktr -ktrn:1,2 -o po/keys.pot src/*.java 
 
 # merge keys into localized po file
 msgmerge -U po/de.po po/keys.pot
