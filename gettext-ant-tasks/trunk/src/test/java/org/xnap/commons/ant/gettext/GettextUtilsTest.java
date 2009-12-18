@@ -19,6 +19,17 @@ public class GettextUtilsTest extends TestCase {
         } catch (IllegalArgumentException expected) {
         }
     }
+    
+    public void testGetJavaLocaleConvertsISOCodes() {
+    	assertEquals("iw", GettextUtils.getJavaLocale("he"));
+    	assertEquals("iw_HE", GettextUtils.getJavaLocale("he_HE"));
+    	assertEquals("iw", GettextUtils.getJavaLocale("iw"));
+    	assertEquals("ji", GettextUtils.getJavaLocale("yi"));
+    	assertEquals("ji_JI", GettextUtils.getJavaLocale("yi_JI"));
+    	assertEquals("ji", GettextUtils.getJavaLocale("ji"));
+    	assertEquals("in", GettextUtils.getJavaLocale("id"));
+    	assertEquals("in", GettextUtils.getJavaLocale("in"));
+    }
 
     public void testGetRelativePathWithLocationsParentSameAsFile() {
     	assertEquals("", GettextUtils.getRelativePath(new File("/tmp/test/file"), new Location("/tmp/test/file/test")));

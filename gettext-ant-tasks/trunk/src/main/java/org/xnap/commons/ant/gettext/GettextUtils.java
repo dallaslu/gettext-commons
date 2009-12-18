@@ -54,6 +54,15 @@ public class GettextUtils {
                 tokens.add(lastToken.substring(index + 1));
             }
         }
+        
+        String language = (String) tokens.get(0);
+        if (language.equalsIgnoreCase("he")) {
+        	tokens.set(0, "iw");
+        } else if (language.equalsIgnoreCase("yi")) {
+        	tokens.set(0, "ji");
+        } else if (language.equalsIgnoreCase("id")) {
+        	tokens.set(0, "in");
+        }
 
         StringBuffer sb = new StringBuffer();
         for (Iterator it = tokens.iterator(); it.hasNext();) {
