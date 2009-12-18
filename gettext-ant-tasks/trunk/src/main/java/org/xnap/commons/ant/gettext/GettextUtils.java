@@ -84,6 +84,9 @@ public class GettextUtils {
 			// + 1 for the one folder you have to back out of, since the last / is part of the common path
 			int folders = countOccurrences(locationSubPath, File.separatorChar) + 1;
 			String fileSubPath = filePath.substring(commonPrefixLength);
+			if (fileSubPath.charAt(0) == File.separatorChar) {
+				fileSubPath = fileSubPath.substring(1);
+			}
 			StringBuilder builder = new StringBuilder();
 			for (int i = 0; i < folders; i++) {
 				builder.append("..").append(File.separatorChar);
