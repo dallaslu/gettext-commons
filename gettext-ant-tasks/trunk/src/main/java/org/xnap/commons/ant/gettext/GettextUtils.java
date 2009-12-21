@@ -54,7 +54,8 @@ public class GettextUtils {
                 tokens.add(lastToken.substring(index + 1));
             }
         }
-        
+
+        // Locale.java replaces these codes, so we have to do it too
         String language = (String) tokens.get(0);
         if (language.equalsIgnoreCase("he")) {
         	tokens.set(0, "iw");
