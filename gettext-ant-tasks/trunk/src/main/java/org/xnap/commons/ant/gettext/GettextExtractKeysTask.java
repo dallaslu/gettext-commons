@@ -51,6 +51,11 @@ public class GettextExtractKeysTask extends AbstractGettextTask {
         this.keywords = keywords;
     }
     
+    private String language = "--language=Java";
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+    
     private void checkPreconditions() throws BuildException {
         if (poDirectory == null) {
             throw new BuildException("poDirectory must be set for xgettext");
@@ -83,7 +88,7 @@ public class GettextExtractKeysTask extends AbstractGettextTask {
         cl.createArgument().setValue("-c");
         cl.createArgument().setValue("--from-code=" + encoding);
         cl.createArgument().setValue("--output=" + new File(poDirectory, keysFile).getAbsolutePath());
-        cl.createArgument().setValue("--language=Java");
+        cl.createArgument().setLine(language);
         cl.createArgument().setLine(keywords);
         
         cl.createArgument().setValue("--files-from=" + file.getAbsolutePath());
