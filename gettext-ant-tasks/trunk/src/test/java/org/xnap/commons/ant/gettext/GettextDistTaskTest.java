@@ -9,6 +9,19 @@ import org.apache.tools.ant.types.FileSet;
 import org.apache.tools.ant.types.selectors.FilenameSelector;
 
 public class GettextDistTaskTest extends TestCase {
+	
+	public void testFileMatchesPercentageForPoFileWithWarnings() throws Exception {
+		// 99.1 percent file
+		File file = new File(getClass().getResource("de-with-warnings.po").toURI());
+		assertTrue(file.isFile());
+		
+		GettextDistTask task = new GettextDistTask();
+		task.setPercentage(99);
+		
+		assertTrue(task.fileMatchesPercentage(file));
+		task.setMoreOrLess("<");
+		assertFalse(task.fileMatchesPercentage(file));
+	}
 
 	public void testFileMatchesPercentage() throws Exception {
 		// 99.1 percent file
@@ -112,7 +125,7 @@ public class GettextDistTaskTest extends TestCase {
 		task.addFileSet(fileSet);
 
 		String[] files = task.getPoFiles();
-		assertEquals(5, files.length);
+		assertEquals(6, files.length);
 	}
 	
 	public void testGetSinglePoFile() throws Exception {

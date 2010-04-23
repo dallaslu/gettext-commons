@@ -69,14 +69,14 @@ public class GettextDistTask extends AbstractGettextGenerateTask {
     	try {
 			Process process = Runtime.getRuntime().exec(cl.getCommandline());
 			BufferedReader reader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
-			StringBuilder builder = new StringBuilder();
-			char buffer[] = new char[1024];
-			int count;
-			while ((count = reader.read(buffer, 0, buffer.length)) != -1) {
-				builder.append(buffer, 0, count);
+			
+			// get last line of output
+			String output = null;
+			String line = null;
+			while ((line = reader.readLine()) != null) {
+				output = line;
 			}
 			
-			String output = builder.toString();
 			// zero translations
 			if (output.startsWith("0")) {
 				if (getProject() != null) {
