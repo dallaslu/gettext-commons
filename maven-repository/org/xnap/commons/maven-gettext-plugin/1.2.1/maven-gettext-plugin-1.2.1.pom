@@ -1,0 +1,145 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.xnap.commons</groupId>
+  <artifactId>maven-gettext-plugin</artifactId>
+  <packaging>maven-plugin</packaging>
+  <version>1.2.1</version>
+  <name>Maven Gettext Plugin</name>
+  <url>http://xnap-commons.sourceforge.net/m2/maven-gettext-plugin/</url>
+  <developers>
+    <developer>
+      <id>vanto</id>
+      <name>Tammo van Lessen</name>
+      <url>http://www.taval.de</url>
+      <organization>XNap Commons Team</organization>
+      <roles>
+	<role>Project Manager</role> 
+	<role>Developer</role> 
+	<role>Creator</role> 
+      </roles>
+    </developer>
+    <developer>
+      <id>squig</id>
+      <name>Steffen Pingel</name>
+      <url>http://steffenpingel.de</url>
+      <organization>XNap Commons Team</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+    </developer>
+    <developer>
+      <id>bergerfx</id>
+      <name>Felix Berger</name>
+      <url>http://felix.limespot.com/blog</url>
+      <organization>XNap Commons Team</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+    </developer>
+  </developers>
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-plugin-api</artifactId>
+      <version>2.0</version>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-utils</artifactId>
+	  <version>1.0.5</version>
+    </dependency>    
+    <!-- <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-utils</artifactId>
+	  <version>1.0.5</version>
+    </dependency> -->
+    <!-- <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-utils</artifactId>
+	  <version>1.0.5</version>
+    </dependency> -->
+	<dependency>
+      <groupId>org.apache.maven.reporting</groupId>
+      <artifactId>maven-reporting-api</artifactId>
+      <version>2.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven.reporting</groupId>
+      <artifactId>maven-reporting-impl</artifactId>
+      <version>2.0</version>
+    </dependency>
+  </dependencies>
+  <scm>
+    <connection>scm:svn:http://gettext-commons.googlecode.com/svn/maven2-plugins/trunk</connection>
+    <developerConnection>scm:svn:http://gettext-commons.googlecode.com/svn/maven2-plugins/trunk</developerConnection>
+    <url>http://gettext-commons.googlecode.com/svn/maven2-plugins/trunk</url>
+ </scm>
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-eclipse-plugin</artifactId>
+          <configuration>
+            <projectnatures>
+              <java.lang.String>org.eclipse.jdt.core.javanature</java.lang.String>
+            </projectnatures>
+            <buildcommands>
+              <java.lang.String>org.eclipse.jdt.core.javabuilder</java.lang.String>
+            </buildcommands>
+            <!--  <outputDirectory>/target/eclipse-classes</outputDirectory> -->
+          </configuration>
+        </plugin> 
+      </plugins>
+    </pluginManagement>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+  <distributionManagement>
+    <site>
+      <id>xnap-commons</id>
+      <name>Maven Gettext Plugin Site</name>
+      <url>file:///tmp/</url>
+    </site>
+    <repository>
+      <id>xnap-commons</id>
+      <name>XNap Commons Repository</name>
+      <url>file:///tmp/</url>
+    </repository>
+    <snapshotRepository>
+      <id>xnap-commons</id>
+      <name>XNap Commons Snapshots Repository</name>
+      <url>scp://shell.sf.net/home/groups/x/xn/xnap-commons/htdocs/repository/</url>
+    </snapshotRepository>
+  </distributionManagement>
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-plugin-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-changes-plugin</artifactId>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>changes-report</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+    </plugins>
+  </reporting>
+</project>
