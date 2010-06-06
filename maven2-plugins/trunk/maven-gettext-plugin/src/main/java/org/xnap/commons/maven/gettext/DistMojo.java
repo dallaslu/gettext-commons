@@ -99,7 +99,15 @@ public class DistMojo
     	for (int i = 0; i < files.length; i++) {
     		getLog().info("Processing " + files[i]);
     		
-        	Commandline cl = cf.createCommandline(new File(poDirectory, files[i]));
+    		File inputFile = new File(poDirectory, files[i]);
+    		File outputFile = cf.getOutputFile(inputFile);
+    		
+    		if (!isNewer(inputFile, outputFile)) {
+    			getLog().info("Not compiling, target is up-to-date: " + outputFile);
+    			continue;
+    		}
+    		
+        	Commandline cl = cf.createCommandline(inputFile);
     		getLog().debug("Executing: " + cl.toString());
     		StreamConsumer out = new LoggerStreamConsumer(getLog(), LoggerStreamConsumer.INFO);
     		StreamConsumer err = new LoggerStreamConsumer(getLog(), LoggerStreamConsumer.WARN);
@@ -117,8 +125,16 @@ public class DistMojo
     	touch(new File(outputDirectory, basepath + ".properties"));
     }
     	
-    private void touch(File file) {
+    private boolean isNewer(File inputFile, File outputFile) {
+		return inputFile.lastModified() > outputFile.lastModified();
+	}
+
+	private void touch(File file) {
     	if (!file.exists()) {
+    		File parent = file.getParentFile();
+    		if (!parent.exists()) {
+    			parent.mkdirs();
+    		}
     		try {
 				file.createNewFile();
 			} catch (IOException e) {
@@ -129,12 +145,26 @@ public class DistMojo
     
     private interface CommandlineFactory {
     	Commandline createCommandline(File file);
+    	/**
+    	 * @return the output file of this command
+    	 */
+    	File getOutputFile(File input);
     }
     
     private class MsgFmtCommandlineFactory implements CommandlineFactory {
-        public Commandline createCommandline(File file) {
+    	
+    	@Override
+    	public File getOutputFile(File input) {
+    		String locale = getLocale(input);
+    		return new File(outputDirectory, targetBundle.replace('.', File.separatorChar) + "_" + locale + ".class"); 
+    	}
+    	
+    	private String getLocale(File file) {
     		String locale = file.getName().substring(0, file.getName().lastIndexOf('.'));
-
+    		return GettextUtils.getJavaLocale(locale);
+    	}
+    	
+        public Commandline createCommandline(File file) {
         	Commandline cl = new Commandline();
         	cl.setExecutable(msgfmtCmd);
         	
@@ -149,7 +179,7 @@ public class DistMojo
         	cl.createArgument().setValue("-r");
         	cl.createArgument().setValue(targetBundle);
         	cl.createArgument().setValue("-l");
-        	cl.createArgument().setValue(locale);
+        	cl.createArgument().setValue(getLocale(file));
         	cl.createArgument().setFile(file);
         	getLog().warn(cl.toString());
         	return cl;
@@ -157,11 +187,24 @@ public class DistMojo
     }
 
     private class MsgCatCommandlineFactory implements CommandlineFactory {
-    	public Commandline createCommandline(File file) {
+    	
+    	@Override
+    	public File getOutputFile(File input) {
     		String basepath = targetBundle.replace('.', File.separatorChar);
-    		String locale = file.getName().substring(0, file.getName().lastIndexOf('.'));
+    		String locale = input.getName().substring(0, input.getName().lastIndexOf('.'));
+    		locale = GettextUtils.getJavaLocale(locale);
         	File target = new File(outputDirectory, basepath + "_" + locale + ".properties");
+        	return target;
+    	}
+    	
+    	public Commandline createCommandline(File file) {
         	Commandline cl = new Commandline();
+        	
+        	File outputFile = getOutputFile(file);
+        	File parent = outputFile.getParentFile();
+        	if (!parent.exists()) {
+        		parent.mkdirs();
+        	}
        	
         	cl.setExecutable(msgcatCmd);
        	
@@ -169,7 +212,7 @@ public class DistMojo
         	cl.createArgument().setValue("-p");
         	cl.createArgument().setFile(file);
         	cl.createArgument().setValue("-o");
-        	cl.createArgument().setFile(target);
+        	cl.createArgument().setFile(outputFile);
 
         	return cl;
         }
