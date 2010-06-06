@@ -24,14 +24,14 @@ Add the following lines to your pom.xml file to add the Gettext Commons library 
 {{{
 <project>
  ...
- <plugins> 
+ <dependencies> 
   ...
-  <plugin>
+  <dependency>
       <groupId>org.xnap.commons</groupId>
       <artifactId>gettext-commons</artifactId>
       <version>0.9.6</version>
-  </plugin>
- </plugins>
+  </dependency>
+ </dependencies>
 }}}
 
 = Adding the Maven plugin =
@@ -41,15 +41,15 @@ Add the following lines to your pom.xml file to make use of the maven gettext pl
 {{{
 <project>
  ...
- <dependencies> 
+ <plugins> 
   ...
-  <dependency>
+  <plugin>
     <groupId>org.xnap.commons</groupId>
     <artifactId>maven-gettext-plugin</artifactId>
     <version>1.2.0</version>
     <configuration>
       <targetBundle>Message</targetBundle>
     </configuration>
-  </dependency>
- </dependencies>
+  </plugin>
+ </plugins>
 }}}
