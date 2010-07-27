@@ -46,7 +46,7 @@ public class GettextMojo
 	
     /**
      * @description Gettext keywords (see -k in help for details).
-     * @parameter expression="${keywords}" default-value="-ktrc -ktr -kmarktr -ktrn:1,2"
+     * @parameter expression="${keywords}" default-value="-ktrc:1c,2 -ktrnc:1c,2,3 -ktr -kmarktr -ktrn:1,2 -k"
      * @required
      */
     protected String keywords;

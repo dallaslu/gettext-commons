@@ -81,6 +81,9 @@ public class DistMojo
     public void execute()
         throws MojoExecutionException {
     	
+    	// create output directory if it doesn't exists
+    	outputDirectory.mkdirs();
+    	
     	CommandlineFactory cf = null;
 		if ("class".equals(outputFormat)) {
 			cf = new MsgFmtCommandlineFactory();
