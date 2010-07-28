@@ -41,12 +41,22 @@ Add the following lines to your pom.xml file to make use of the maven gettext pl
 {{{
 <project>
  ...
+ <pluginRepositories>
+  <pluginRepository>
+    <id>gettext-commons-site</id>
+    <url>http://gettext-commons.googlecode.com/svn/maven-repository/</url>
+    <releases>
+      <updatePolicy>daily</updatePolicy>
+    </releases>
+  </pluginRepository>
+ </pluginRepositories>
+ ...
  <plugins> 
   ...
   <plugin>
     <groupId>org.xnap.commons</groupId>
     <artifactId>maven-gettext-plugin</artifactId>
-    <version>1.2.1</version>
+    <version>1.2.2</version>
     <configuration>
       <targetBundle>Message</targetBundle>
     </configuration>
