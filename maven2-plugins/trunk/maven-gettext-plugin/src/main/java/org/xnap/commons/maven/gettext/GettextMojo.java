@@ -29,7 +29,8 @@ import org.codehaus.plexus.util.cli.Commandline;
 import org.codehaus.plexus.util.cli.StreamConsumer;
 
 /**
- * Invokes xgettext to extract keys from source code.
+ * Invokes xgettext to extract messages from source code and store them in the
+ * keys.pot file.
  *
  * @goal gettext
  * 
@@ -39,20 +40,20 @@ public class GettextMojo
     extends AbstractGettextMojo {
 	
     /**
-     * @description Source Encoding.
+     * The encoding of the source Java files. utf-8 is a superset of ascii.
      * @parameter expression="${encoding}" default-value="utf-8" 
      */
 	protected String encoding;
 	
     /**
-     * @description Gettext keywords (see -k in help for details).
+     * The keywords the xgettext parser will look for to extract messages. The default value works with the Gettext Commons library.
      * @parameter expression="${keywords}" default-value="-ktrc:1c,2 -ktrnc:1c,2,3 -ktr -kmarktr -ktrn:1,2 -k"
      * @required
      */
     protected String keywords;
     
     /**
-     * @description xgettext command.
+     * The xgettext command.
      * @parameter expression="${xgettextCmd}" default-value="xgettext"
      * @required 
      */
@@ -70,6 +71,7 @@ public class GettextMojo
     	cl.createArgument().setValue("--output=" + new File(poDirectory, keysFile).getAbsolutePath());
     	cl.createArgument().setValue("--language=Java");
     	cl.createArgument().setLine(keywords);
+    	cl.setWorkingDirectory(sourceDirectory.getAbsolutePath());
     	
     	DirectoryScanner ds = new DirectoryScanner();
     	ds.setBasedir(sourceDirectory);
@@ -104,7 +106,7 @@ public class GettextMojo
             BufferedWriter writer = new BufferedWriter(new FileWriter(listFile));
             try {
                 for (int i = 0; i < files.length; i++) {
-                    writer.write(getAbsolutePath(files[i]));
+                    writer.write(toUnixPath(files[i]));
                     writer.newLine();
                 }                
             } finally {
@@ -119,7 +121,14 @@ public class GettextMojo
     }
     
     private String getAbsolutePath(String path) {
-        return sourceDirectory.getAbsolutePath() + File.separator + path;
+    	return sourceDirectory.getAbsolutePath() + File.separator + path;
+    }
+    
+    private String toUnixPath(String path) {
+        if (File.separatorChar != '/') {
+        	return path.replace(File.separatorChar, '/');
+        }
+        return path;
     }
     
 }

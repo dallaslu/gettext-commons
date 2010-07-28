@@ -37,7 +37,7 @@ public class MergeMojo
     extends AbstractGettextMojo {
 	
     /**
-     * @description msgcat command.
+     * The msgmerge command.
      * @parameter expression="${msgmergeCmd}" default-value="msgmerge"
      * @required 
      */

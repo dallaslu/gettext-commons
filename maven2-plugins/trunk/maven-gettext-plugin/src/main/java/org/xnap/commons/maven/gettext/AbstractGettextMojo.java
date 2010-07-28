@@ -28,28 +28,28 @@ public abstract class AbstractGettextMojo
 	
 	
 	/**
-     * @description Output directory.
+     * The output directory for generated class or properties files.
      * @parameter expression="${outputDirectory}" default-value="${project.build.outputDirectory}"
      * @required
      */
     protected File outputDirectory;
 
     /**
-     * @description Source directory.
+     * Source directory. This directory is searched recursively for .java files.
      * @parameter expression="${sourceDirectory}" default-value="${project.build.sourceDirectory}"
      * @required
      */
     protected File sourceDirectory;
     
     /**
-     * PO directory.
+     * The output directory for the keys.pot directory for merging .po files. 
      * @parameter expression="${poDirectory}" default-value="${project.build.sourceDirectory}/main/po"
      * @required
      */
     protected File poDirectory;
     
     /**
-     * Filename of the .pot file.2
+     * Filename of the .pot file.
      * @parameter expression="${keysFile}" default-value="keys.pot"
      * @required
      */

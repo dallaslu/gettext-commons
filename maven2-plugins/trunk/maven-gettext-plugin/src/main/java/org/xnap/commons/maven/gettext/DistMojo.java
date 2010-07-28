@@ -37,42 +37,42 @@ public class DistMojo
     extends AbstractGettextMojo {
 
     /**
-     * @description msgcat command.
+     * The msgcat command.
      * @parameter expression="${msgcatCmd}" default-value="msgcat"
      * @required 
      */
     protected String msgcatCmd;
     
     /**
-     * @description msgfmt command.
+     * The msgfmt command.
      * @parameter expression="${msgfmtCmd}" default-value="msgfmt"
      * @required 
      */
     protected String msgfmtCmd;
     
     /**
-     * @description target package.
+     * The package and file name of the generated class or properties files.
      * @parameter expression="${targetBundle}"
      * @required 
      */
     protected String targetBundle;
     
     /**
-     * @description Output format ("class" or "properties")
+     * Output format, can be "class" or "properties".
      * @parameter expression="${outputFormat}" default-value="class"
      * @required 
      */
     protected String outputFormat;
     
     /**
-     * Java version.
-     * Can be "1" or "2".
+     * Java version. Can be "1" or "2".
      * @parameter expression="${javaVersion}" default-value="2"
      * @required
      */
     protected String javaVersion;
 
     /**
+     * The locale of the messages in the source code.
      * @parameter expression="${sourceLocale}" default-value="en"
      * @required
      */
