@@ -4,7 +4,7 @@
   <groupId>org.xnap.commons</groupId>
   <artifactId>maven-gettext-plugin</artifactId>
   <packaging>maven-plugin</packaging>
-  <version>1.2.1</version>
+  <version>1.2.2</version>
   <name>Maven Gettext Plugin</name>
   <url>http://xnap-commons.sourceforge.net/m2/maven-gettext-plugin/</url>
   <developers>
@@ -110,12 +110,12 @@
     <site>
       <id>xnap-commons</id>
       <name>Maven Gettext Plugin Site</name>
-      <url>file:///tmp/</url>
+      <url>file:///home/felix/src/gettext-commons/maven2-plugins-site/</url>
     </site>
     <repository>
       <id>xnap-commons</id>
       <name>XNap Commons Repository</name>
-      <url>file:///tmp/</url>
+      <url>file:///home/felix/src/gettext-commons/maven-repository/</url>
     </repository>
     <snapshotRepository>
       <id>xnap-commons</id>
