@@ -141,7 +141,6 @@ For more information on how the resource lookup works, please [http://xnap-commo
 
 = Tools Integration =
 
-If Maven is used for building, the invocation of gettext can be easily integrated into the build process. Follow the appropriate link below for more information:
+If Maven is used for building, the invocation of gettext can be easily integrated into the build process:
 
- * [http://xnap-commons.sourceforge.net/m1/maven-gettext-plugin/index.html Maven 1.x Gettext Plugin]
- * [http://xnap-commons.sourceforge.net/m2/maven-gettext-plugin/index.html Maven 2.x Gettext Plugin]
+ * [http://gettext-commons.googlecode.com/svn/maven2-plugins-site/plugin-info.html Maven 2.x Gettext Plugin]
