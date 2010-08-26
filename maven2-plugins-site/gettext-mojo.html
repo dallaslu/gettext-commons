@@ -28,7 +28,7 @@
                                     <img src="http://sourceforge.net/sflogo.php?group_id=121150&type=1" alt="" />
     
             </a>
-                        <a href="http://xnap-commons.sourceforge.net/" id="bannerRight">
+                        <a href="http://code.google.com/p/gettext-commons/" id="bannerRight">
     
             Maven Gettext Plugin
     
@@ -47,7 +47,7 @@
   
     
             <div class="xleft">
-        Last Published: 2010-07-28
+        Last Published: 2010-08-26
                       </div>
             <div class="xright">      
   
@@ -138,7 +138,7 @@
         <div class="section"><h2><a name="gettext:gettext"></a>
 gettext:gettext</h2>
 <p><strong>Full name</strong>:</p>
-<p>org.xnap.commons:maven-gettext-plugin:1.2.2:gettext</p>
+<p>org.xnap.commons:maven-gettext-plugin:1.2.3:gettext</p>
 <p><strong>Description</strong>:</p>
 <div>Invokes xgettext to extract messages from source code and store
 them in the keys.pot file.</div><p><strong>Attributes</strong>:</p>
@@ -214,6 +214,13 @@ Optional Parameters</h3>
 ascii.<br />
 <strong>Default value is</strong>: <code>utf-8</code>.</td>
 </tr>
+<tr class="b"><td><strong><a href="#extraSourceFiles">extraSourceFiles</a>
+</strong></td>
+<td><code>FileSet</code></td>
+<td><code>-</code></td>
+<td><br />
+</td>
+</tr>
 </table>
 </div>
 <div class="section"><h3><a name="Parameter_Details"></a>
@@ -225,6 +232,13 @@ ascii.</div><ul><li><strong>Type</strong>: <code>java.lang.String</code></li>
 <li><strong>Required</strong>: <code>No</code></li>
 <li><strong>Expression</strong>: <code>${encoding}</code></li>
 <li><strong>Default</strong>: <code>utf-8</code></li>
+</ul>
+<hr />
+<p><strong><a name="extraSourceFiles">extraSourceFiles</a>
+:</strong></p>
+<div></div><ul><li><strong>Type</strong>: <code>org.apache.maven.model.FileSet</code></li>
+<li><strong>Required</strong>: <code>No</code></li>
+<li><strong>Expression</strong>: <code>${extraSourceFiles}</code></li>
 </ul>
 <hr />
 <p><strong><a name="keysFile">keysFile</a>
