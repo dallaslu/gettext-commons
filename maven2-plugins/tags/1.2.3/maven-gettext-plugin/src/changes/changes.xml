@@ -1,0 +1,20 @@
+<document>
+  <properties>
+    <title>Maven Gettext Plugin Changelog</title>
+    <author email="steffenp@gmx.de">Steffen Pingel</author>
+  </properties>
+  <body>
+    <release version="1.1" date="2007-08-01" description="Subsequent release">
+      <action dev="squig" type="fix">
+        Write list of sources to file instead of passing them on the
+		command line to avoid overflow.
+      </action>
+    </release>
+
+    <release version="1.0" date="2006-01-08" description="First release">
+      <action dev="squig" type="">
+        First release of the Maven Gettext Plugin for Maven 2.0.
+      </action>
+    </release>
+  </body>
+</document>
