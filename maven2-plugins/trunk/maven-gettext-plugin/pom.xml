@@ -6,7 +6,7 @@
   <packaging>maven-plugin</packaging>
   <version>1.2.2</version>
   <name>Maven Gettext Plugin</name>
-  <url>http://xnap-commons.sourceforge.net/m2/maven-gettext-plugin/</url>
+  <url>http://gettext-commons.googlecode.com/svn/maven2-plugins-site/index.html</url>
   <developers>
     <developer>
       <id>vanto</id>
@@ -23,7 +23,7 @@
       <id>squig</id>
       <name>Steffen Pingel</name>
       <url>http://steffenpingel.de</url>
-      <organization>XNap Commons Team</organization>
+      <organization>Gettext Commons Team</organization>
       <roles>
         <role>Developer</role>
       </roles>
@@ -31,10 +31,11 @@
     <developer>
       <id>bergerfx</id>
       <name>Felix Berger</name>
-      <url>http://felix.limespot.com/blog</url>
-      <organization>XNap Commons Team</organization>
+      <url>http://github.com/fberger/</url>
+      <organization>Gettext Commons Team</organization>
       <roles>
         <role>Developer</role>
+        <role>Maintainer</role>
       </roles>
     </developer>
   </developers>

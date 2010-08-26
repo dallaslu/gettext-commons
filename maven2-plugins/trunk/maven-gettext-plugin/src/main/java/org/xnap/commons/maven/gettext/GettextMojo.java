@@ -20,9 +20,15 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 
+import org.apache.maven.model.FileSet;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.codehaus.plexus.util.DirectoryScanner;
+import org.codehaus.plexus.util.FileUtils;
+import org.codehaus.plexus.util.StringUtils;
 import org.codehaus.plexus.util.cli.CommandLineException;
 import org.codehaus.plexus.util.cli.CommandLineUtils;
 import org.codehaus.plexus.util.cli.Commandline;
@@ -58,6 +64,23 @@ public class GettextMojo
      * @required 
      */
     protected String xgettextCmd;
+    
+    /**
+     * An optional set of source files that should be parsed with xgettext.
+     * <pre>
+     * <extraSourceFiles>
+     *   <directory>${basedir}</directory>
+     *   <includes>
+     *      <include>** /*.jsp</include>
+     *    </includes>
+     *    <excludes>
+     *      <exclude>** /*.txt</exclude>
+     *    </excludes>
+     * </extraSourceFiles>
+     * </pre>
+     * @parameter expression="${extraSourceFiles}"
+     */
+    protected FileSet extraSourceFiles;
 
 	public void execute()
         throws MojoExecutionException
@@ -78,8 +101,18 @@ public class GettextMojo
     	ds.setIncludes(new String[] {"**/*.java"});
     	ds.scan();
         String[] files = ds.getIncludedFiles();
+        List fileNameList = Collections.emptyList();
+        if (extraSourceFiles.getDirectory() != null) {
+        	try {
+        		fileNameList = FileUtils.getFileNames(new File(extraSourceFiles.getDirectory()), 
+        				StringUtils.join(extraSourceFiles.getIncludes().iterator(), ","), 
+        				StringUtils.join(extraSourceFiles.getExcludes().iterator(), ","), false);
+        	} catch (IOException e) {
+        		throw new MojoExecutionException("error finding extra source files", e);
+        	}
+        }
         
-    	File file = createListFile(files);
+    	File file = createListFile(files, fileNameList);
     	if (file != null) {
     	    cl.createArgument().setValue("--files-from=" + file.getAbsolutePath());
     	} else {
@@ -98,7 +131,7 @@ public class GettextMojo
     	}
     }
 
-    private File createListFile(String[] files) {
+    private File createListFile(String[] files, List fileList) {
         try {
             File listFile = File.createTempFile("maven", null);
             listFile.deleteOnExit();
@@ -108,7 +141,11 @@ public class GettextMojo
                 for (int i = 0; i < files.length; i++) {
                     writer.write(toUnixPath(files[i]));
                     writer.newLine();
-                }                
+                }              
+                for (Iterator i = fileList.iterator(); i.hasNext();) {
+                	writer.write(toUnixPath((String) i.next()));
+                	writer.newLine();
+                }
             } finally {
                 writer.close();
             }

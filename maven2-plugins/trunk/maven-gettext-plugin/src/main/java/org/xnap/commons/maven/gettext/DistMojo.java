@@ -156,7 +156,6 @@ public class DistMojo
     
     private class MsgFmtCommandlineFactory implements CommandlineFactory {
     	
-    	@Override
     	public File getOutputFile(File input) {
     		String locale = getLocale(input);
     		return new File(outputDirectory, targetBundle.replace('.', File.separatorChar) + "_" + locale + ".class"); 
@@ -191,7 +190,6 @@ public class DistMojo
 
     private class MsgCatCommandlineFactory implements CommandlineFactory {
     	
-    	@Override
     	public File getOutputFile(File input) {
     		String basepath = targetBundle.replace('.', File.separatorChar);
     		String locale = input.getName().substring(0, input.getName().lastIndexOf('.'));
