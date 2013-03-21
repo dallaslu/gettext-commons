@@ -12,7 +12,7 @@ Add the following lines to your pom.xml file to include the Gettext Commons repo
     ...
     <repository>
       <id>gettext-commons-site</id>
-      <url>http://gettext-commons.googlecode.com/svn/maven-repository/</url>
+      <url>http://gettext-commons-maven-repository.googlecode.com/svn/repository/</url>
     </repository>
   </repositories>
 }}}
@@ -29,7 +29,7 @@ Add the following lines to your pom.xml file to add the Gettext Commons library 
   <dependency>
       <groupId>org.xnap.commons</groupId>
       <artifactId>gettext-commons</artifactId>
-      <version>0.9.6</version>
+      <version>0.9.7</version>
   </dependency>
  </dependencies>
 }}}
@@ -44,7 +44,7 @@ Add the following lines to your pom.xml file to make use of the maven gettext pl
  <pluginRepositories>
   <pluginRepository>
     <id>gettext-commons-site</id>
-    <url>http://gettext-commons.googlecode.com/svn/maven-repository/</url>
+    <url>http://gettext-commons-maven-repository.googlecode.com/svn/repository/</url>
     <releases>
       <updatePolicy>daily</updatePolicy>
     </releases>
