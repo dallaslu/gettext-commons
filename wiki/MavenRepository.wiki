@@ -57,6 +57,15 @@ Add the following lines to your pom.xml file to make use of the maven gettext pl
     <groupId>org.xnap.commons</groupId>
     <artifactId>maven-gettext-plugin</artifactId>
     <version>1.2.3</version>
+    <executions>
+        <execution>
+            <id>convert-po-class</id>
+            <phase>compile</phase>
+            <goals>
+                <goal>dist</goal>
+            </goals>
+        </execution>
+    </executions>
     <configuration>
       <poDirectory>${basedir}/po</poDirectory>
       <targetBundle>my.package.Messages</targetBundle>
