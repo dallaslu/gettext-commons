@@ -89,9 +89,9 @@
     </dependency>
   </dependencies>
   <scm>
-    <connection>scm:svn:http://gettext-commons.googlecode.com/svn/maven2-plugins/tags/1.2.4</connection>
-    <developerConnection>scm:svn:http://gettext-commons.googlecode.com/svn/maven2-plugins/tags/1.2.4</developerConnection>
-    <url>http://gettext-commons.googlecode.com/svn/maven2-plugins/tags/1.2.4</url>
+    <connection>scm:svn:http://gettext-commons.googlecode.com/svn/maven2-plugins/trunk/</connection>
+    <developerConnection>scm:svn:http://gettext-commons.googlecode.com/svn/maven2-plugins/trunk/</developerConnection>
+    <url>http://gettext-commons.googlecode.com/svn/maven2-plugins/trunk/</url>
   </scm>
   <build>
     <pluginManagement>
