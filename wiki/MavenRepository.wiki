@@ -1,21 +1,7 @@
-#summary This page explains how to edit your Maven 2 pom.xml file to use the Gettext Commons Maven repository.
+#summary This page explains how to edit your Maven 2 pom.xml file to use the Gettext Commons Maven dependencies
 #labels Featured
 
-= Adding the repository =
-
-Add the following lines to your pom.xml file to include the Gettext Commons repository:
-
-{{{
-<project>
-  ...
-  <repositories>
-    ...
-    <repository>
-      <id>gettext-commons-site</id>
-      <url>http://gettext-commons-maven-repository.googlecode.com/svn/repository/</url>
-    </repository>
-  </repositories>
-}}}
+You don't have to add a custom maven repository as Gettext commons is [http://search.maven.org/#search|ga|1|g%3A%22com.googlecode.gettext-commons%22 available on maven central]
 
 = Adding the Gettext Commons library =
 
@@ -27,9 +13,9 @@ Add the following lines to your pom.xml file to add the Gettext Commons library 
  <dependencies> 
   ...
   <dependency>
-      <groupId>org.xnap.commons</groupId>
+      <groupId>com.googlecode.gettext-commons</groupId>
       <artifactId>gettext-commons</artifactId>
-      <version>0.9.7</version>
+      <version>0.9.8</version>
   </dependency>
  </dependencies>
 }}}
@@ -40,23 +26,12 @@ Add the following lines to your pom.xml file to make use of the maven gettext pl
 
 {{{
 <project>
- ...
- <pluginRepositories>
-  <pluginRepository>
-    <id>gettext-commons-site</id>
-    <url>http://gettext-commons-maven-repository.googlecode.com/svn/repository/</url>
-    <releases>
-      <updatePolicy>daily</updatePolicy>
-    </releases>
-  </pluginRepository>
- </pluginRepositories>
- ...
  <plugins> 
   ...
   <plugin>
-    <groupId>org.xnap.commons</groupId>
-    <artifactId>maven-gettext-plugin</artifactId>
-    <version>1.2.3</version>
+    <groupId>com.googlecode.gettext-commons</groupId>
+    <artifactId>gettext-maven-plugin</artifactId>
+    <version>1.2.4</version>
     <executions>
         <execution>
             <id>convert-po-class</id>
@@ -69,6 +44,7 @@ Add the following lines to your pom.xml file to make use of the maven gettext pl
     <configuration>
       <poDirectory>${basedir}/po</poDirectory>
       <targetBundle>my.package.Messages</targetBundle>
+      <outputFormat>properties</outputFormat>
     </configuration>
   </plugin>
  </plugins>
