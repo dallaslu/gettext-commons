@@ -3,7 +3,7 @@
     <groupId>com.googlecode.gettext-commons</groupId>
     <artifactId>gettext-commons</artifactId>
     <packaging>jar</packaging>
-    <version>0.9.9-SNAPSHOT</version>
+    <version>0.9.9</version>
     <name>Gettext Commons</name>
     <url>http://code.google.com/p/gettext-commons/</url>
     <description>

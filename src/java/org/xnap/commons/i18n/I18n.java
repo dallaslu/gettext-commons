@@ -255,7 +255,7 @@ public class I18n {
 	 */
 	public final String tr(String text, Object[] objects)
 	{
-		return new MessageFormat(tr(text), getResources().getLocale()).format(objects);
+		return new MessageFormat(tr(text), getLocale()).format(objects);
 	}
 
 	/**
@@ -338,7 +338,7 @@ public class I18n {
 	 */
 	public final String trn(String text, String pluralText, long n, Object[] objects)
 	{
-		return new MessageFormat(trn(text, pluralText, n), getResources().getLocale()).format(objects);
+		return new MessageFormat(trn(text, pluralText, n), getLocale()).format(objects);
 	}
 
 	/**
@@ -540,7 +540,7 @@ public class I18n {
 	 * @since 0.9
 	 */
 	public final String trnc(String context, String singularText, String pluralText, long n, Object[] objects) {
-		return new MessageFormat(trnc(context, singularText, pluralText, n), getResources().getLocale()).format(objects);
+		return new MessageFormat(trnc(context, singularText, pluralText, n), getLocale()).format(objects);
 	}
 
 	/**
@@ -551,7 +551,7 @@ public class I18n {
 	 * @since 0.9.5
 	 */
 	public final String trnc(String comment, String singularText, String pluralText, long n, Object obj) {
-		return new MessageFormat(trnc(comment, singularText, pluralText, n), getResources().getLocale()).format(new Object[] { obj });
+		return new MessageFormat(trnc(comment, singularText, pluralText, n), getLocale()).format(new Object[] { obj });
 	}
 	
 	/**
@@ -562,7 +562,7 @@ public class I18n {
 	 * @since 0.9.5
 	 */
 	public final String trnc(String comment, String singularText, String pluralText, long n, Object obj1, Object obj2) {
-		return new MessageFormat(trnc(comment, singularText, pluralText, n), getResources().getLocale()).format(new Object[] { obj1, obj2 });
+		return new MessageFormat(trnc(comment, singularText, pluralText, n), getLocale()).format(new Object[] { obj1, obj2 });
 	}
 	
 	/**
@@ -573,7 +573,7 @@ public class I18n {
 	 * @since 0.9.5
 	 */
 	public final String trnc(String comment, String singularText, String pluralText, long n, Object obj1, Object obj2, Object obj3) {
-		return new MessageFormat(trnc(comment, singularText, pluralText, n), getResources().getLocale()).format(new Object[] { obj1, obj2, obj3 });
+		return new MessageFormat(trnc(comment, singularText, pluralText, n), getLocale()).format(new Object[] { obj1, obj2, obj3 });
 	}
 	
 	/**
@@ -584,7 +584,7 @@ public class I18n {
 	 * @since 0.9.5
 	 */
 	public final String trnc(String comment, String singularText, String pluralText, long n, Object obj1, Object obj2, Object obj3, Object obj4) {
-		return new MessageFormat(trnc(comment, singularText, pluralText, n), getResources().getLocale()).format(new Object[] { obj1, obj2, obj3, obj4 });
+		return new MessageFormat(trnc(comment, singularText, pluralText, n), getLocale()).format(new Object[] { obj1, obj2, obj3, obj4 });
 	}
 	
 }

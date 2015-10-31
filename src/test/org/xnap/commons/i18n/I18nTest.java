@@ -198,4 +198,9 @@ public class I18nTest extends TestCase {
 	public void testTrcReturnsTextWhenTranslationNotFound() {
 		assertEquals("baobab", i18nDE.trc("dont translate to German", "baobab"));
 	}
+
+	public void testNumberLocale() {
+		assertEquals("001.234", i18nEN.tr("{0,number,000.###}", new Double(1.234)));
+		assertEquals("1,23", i18nDE.tr("{0,number,###.##}", new Double(1.234)));
+	}
 }
