@@ -1,17 +1,10 @@
 language: java
 sudo: false
-deploy:
-  provider: releases
-  api-key: ${GITHUB_TOKEN}
-  file:
-  - target/gettext-commons-${project.version}.jar
-  skip_cleanup: true
-  on:
-    tags: true
-    all_branches: true
+env:
+  global:
+    secure: ceKABwChm8MSAPwY11UfYv/FNRnJQ+js8lEBuCNivn9BkjRA6V9gQ29fvpuEFjmB01k6kuAU4mokqtyDz3ibScdbW6UBxsKO6799ngOYuxcWM9vdlDAWxBe6oKcF9xx4a8r9bRN2jIsg1n+s0DJ4DNKqJ1ta2v7qOUVA1vbZF2rFbBYqWkkAHxyol+vKtIZY9ORUOMX81KozSb1LTQd45smDVK37EWYWxrRhF0HllEOwHQZohbNZPKc8lt3P0sY9Sq5eUbQ+PFtyci9dIjRgeaZXwfRj3e7c8SeOswB54Z0rEFUm7HKpda7JXee6H9/w5jlDi37Mb2QRi9f5OOR9CLXSJyA1lxtjOTF82bMTB97HhWrNC4IKBkR2AecfyXm8b5Dms9SlDGiLrXGgPftWVur1h/PO1gk8463BUKttKyFIM9q0qxfM0nNFQytE/32LXjm/eShA6yq1kvesacfOAB6GGuPLRJJt8dpzEtq00RzupUb+1sSKPbW6rMqsMRyECxuOZGW1YO5X0A2rrPh7lVbnVc8OYVnrNuk7njZizBwv31npDzU2pPdTUh3DvrGCsXYFobGKx3hrKGslJUIqcK15Iz49WUBEQk63lLlgV01zzgXok3jI1/dv1T6YRSw3lCCgCTtb8pC2TeogUJcdjUtLIgYIH9TELN92/IQr7Js=
 after_success:
-  # Deploy API to the GitHub maven repo
-  - mvn -nsu -o deploy -DGITHUB_TOKEN=${GITHUB_TOKEN}
+- mvn -nsu deploy -DGITHUB_TOKEN=${GITHUB_TOKEN}
 cache:
   directories:
-  - $HOME/.m2
+  - "$HOME/.m2"
