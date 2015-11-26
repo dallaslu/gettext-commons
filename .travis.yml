@@ -1,0 +1,17 @@
+language: java
+sudo: false
+deploy:
+  provider: releases
+  api-key: ${GITHUB_TOKEN}
+  file:
+  - target/gettext-commons-${project.version}.jar
+  skip_cleanup: true
+  on:
+    tags: true
+    all_branches: true
+after_success:
+  # Deploy API to the GitHub maven repo
+  - mvn -nsu -o deploy -DGITHUB_TOKEN=${GITHUB_TOKEN}
+cache:
+  directories:
+  - $HOME/.m2

@@ -3,7 +3,7 @@
     <groupId>com.googlecode.gettext-commons</groupId>
     <artifactId>gettext-commons</artifactId>
     <packaging>jar</packaging>
-    <version>0.9.9</version>
+    <version>0.9.10</version>
     <name>Gettext Commons</name>
     <url>http://code.google.com/p/gettext-commons/</url>
     <description>
@@ -59,15 +59,13 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
     <scm>
-        <connection>
-            scm:svn:http://gettext-commons.googlecode.com/svn/trunk
-        </connection>
-        <developerConnection>
-            scm:svn:https://gettext-commons.googlecode.com/svn/trunk
-        </developerConnection>
-        <url>http://gettext-commons.googlecode.com/svn/trunk</url>
+        <connection>scm:git:git://github.com/rlf/gettext-commons.git</connection>
+        <developerConnection>scm:git:git://github.com/rlf/gettext-commons.git</developerConnection>
+        <url>https://github.com/rlf/gettext-commons.git</url>
     </scm>
+
     <build>
         <sourceDirectory>src/java</sourceDirectory>
         <testSourceDirectory>src/test</testSourceDirectory>
@@ -188,7 +186,54 @@
                     <outputDirectory>${build.testOutputDirectory}</outputDirectory>
                 </configuration>
             </plugin>
-
+            <plugin>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.8.1</version>
+                <configuration>
+                    <altDeploymentRepository>internal.repo::default::file://${project.build.directory}/mvn-repo
+                    </altDeploymentRepository>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.github.github</groupId>
+                <artifactId>site-maven-plugin</artifactId>
+                <version>0.10</version>
+                <configuration>
+                    <message>Maven artifacts for ${project.version}</message>
+                    <!-- git commit message -->
+                    <noJekyll>true</noJekyll>
+                    <!-- disable webpage processing -->
+                    <outputDirectory>${project.build.directory}/mvn-repo</outputDirectory>
+                    <!-- matches distribution management repository url above -->
+                    <branch>refs/heads/mvn-repo</branch>
+                    <!-- remote branch name -->
+                    <includes>
+                        <include>**/${project.artifactId}-${project.version}*</include>
+                    </includes>
+                    <repositoryName>gettext-commons</repositoryName>
+                    <!-- github repo name -->
+                    <repositoryOwner>rlf</repositoryOwner>
+                    <!-- github username  -->
+                    <oauth2Token>${GITHUB_TOKEN}</oauth2Token>
+                    <merge>true</merge>
+                </configuration>
+                <executions>
+                    <!-- run site-maven-plugin's 'site' target as part of the builder's normal 'deploy' phase -->
+                    <execution>
+                        <goals>
+                            <goal>site</goal>
+                        </goals>
+                        <phase>deploy</phase>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
+    <distributionManagement>
+        <repository>
+            <id>internal.repo</id>
+            <name>Temporary Staging Repository</name>
+            <url>file://${project.build.directory}/mvn-repo</url>
+        </repository>
+    </distributionManagement>
 </project>
