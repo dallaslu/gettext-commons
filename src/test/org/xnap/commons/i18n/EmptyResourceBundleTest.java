@@ -19,6 +19,8 @@
  */
 package org.xnap.commons.i18n;
 
+import java.util.MissingResourceException;
+
 import junit.framework.TestCase;
 
 /**
@@ -29,8 +31,12 @@ public class EmptyResourceBundleTest extends TestCase {
 	public void test()
 	{
 		EmptyResourceBundle bundle = new EmptyResourceBundle(null);
-		assertEquals("Foo", bundle.getObject("Foo"));
 		assertFalse(bundle.getKeys().hasMoreElements());
+		try {
+			bundle.getObject("Foo");
+			fail("MissingResourceException expected");
+		}
+		catch (MissingResourceException mre) {}
 	}
 
 }

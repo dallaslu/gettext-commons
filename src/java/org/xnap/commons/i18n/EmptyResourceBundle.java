@@ -25,9 +25,8 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**
- * A <code>ResourceBundle</code> that returns the key as a value.
+ * A GNU-style <code>ResourceBundle</code> that contains no keys.
  *
- * FIXME needs to implement proper plural handling
  * FIXME the bundle needs to have a valid locale for proper sourceCodeLocale handling
  */
 class EmptyResourceBundle extends ResourceBundle
@@ -40,11 +39,12 @@ class EmptyResourceBundle extends ResourceBundle
 	}
 
 	/**
-	 * Returns the key as value.
+	 * Returns the null value. This allows {@link I18n} to handle plural
+	 * forms correctly.
 	 */
-	protected Object handleGetObject(String key) 
+	public Object handleGetObject(String key) 
 	{
-		return key;
+		return null;
 	}
 
 	public Enumeration getKeys() 
@@ -56,7 +56,11 @@ class EmptyResourceBundle extends ResourceBundle
 	{
 		return locale;
 	}
-	
+
+	public ResourceBundle getParent() {
+		return null;
+	}
+
 	private static class EmptyStringEnumeration implements Enumeration
 	{
 
