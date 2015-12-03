@@ -255,7 +255,7 @@ public class I18n {
 	 */
 	public final String tr(String text, Object[] objects)
 	{
-		return MessageFormat.format(tr(text), objects);
+		return new MessageFormat(tr(text), getLocale()).format(objects);
 	}
 
 	/**
@@ -313,12 +313,7 @@ public class I18n {
 	 */
 	public final String trn(String text, String pluralText, long n)
 	{
-		try {
-			return trnInternal(bundle, text, pluralText, n);
-		}
-		catch (MissingResourceException e) {
-			return (n == 1) ? text : pluralText;
-		}
+		return trnInternal(bundle, text, pluralText, n);
 	}
 
 	/**
@@ -338,7 +333,7 @@ public class I18n {
 	 */
 	public final String trn(String text, String pluralText, long n, Object[] objects)
 	{
-		return MessageFormat.format(trn(text, pluralText, n), objects);
+		return new MessageFormat(trn(text, pluralText, n), getLocale()).format(objects);
 	}
 
 	/**
@@ -395,7 +390,7 @@ public class I18n {
 	 * Based on GettextResource.java that is part of GNU gettext for Java
 	 * Copyright (C) 2001 Free Software Foundation, Inc.
 	 * 
-	 * @param bundle a ResourceBundle
+	 * @param orgBundle a ResourceBundle
 	 * @param text the key string to be translated, an ASCII string
 	 * @param pluralText its English plural form
 	 * @return the translation of <code>text</code> depending on <code>n</code>,
@@ -464,12 +459,23 @@ public class I18n {
 				catch (Exception e) {}
 			}
 			else {
-				return bundle.getString(text);
+				// For a non-GNU ResourceBundle we cannot access 'parent' and
+				// 'handleGetObject', so make a single call to catalog and all
+				// its parent catalogs at once.
+				Object localValue;
+				try {
+					localValue = bundle.getObject(text);
+				}
+				catch (MissingResourceException e) {
+					break;
+				}
+				if (localValue != null)
+					return (String)localValue;
+				break;
 			}
 		}
 		while (bundle != null);
-		throw new MissingResourceException("Can not find resource for key " + text + " in bundle "
-				+ orgBundle.getClass().getName(), orgBundle.getClass().getName(), text);
+		return (n == 1) ? text : pluralText;
 	}
 
 	/**
@@ -514,12 +520,7 @@ public class I18n {
 	 * @since 0.9.5
 	 */
 	public final String trnc(String context, String singularText, String pluralText, long n) {
-		try {
-			return trnInternal(bundle, context + CONTEXT_GLUE + singularText, pluralText, n);
-		}
-		catch (MissingResourceException e) {
-			return (n == 1) ? singularText : pluralText;
-		}
+		return trnInternal(bundle, context + CONTEXT_GLUE + singularText, pluralText, n);
 	}
 
 	/**
@@ -540,7 +541,7 @@ public class I18n {
 	 * @since 0.9
 	 */
 	public final String trnc(String context, String singularText, String pluralText, long n, Object[] objects) {
-		return MessageFormat.format(trnc(context, singularText, pluralText, n), objects);
+		return new MessageFormat(trnc(context, singularText, pluralText, n), getLocale()).format(objects);
 	}
 
 	/**
@@ -551,7 +552,7 @@ public class I18n {
 	 * @since 0.9.5
 	 */
 	public final String trnc(String comment, String singularText, String pluralText, long n, Object obj) {
-		return MessageFormat.format(trnc(comment, singularText, pluralText, n), new Object[] { obj });
+		return new MessageFormat(trnc(comment, singularText, pluralText, n), getLocale()).format(new Object[] { obj });
 	}
 	
 	/**
@@ -562,7 +563,7 @@ public class I18n {
 	 * @since 0.9.5
 	 */
 	public final String trnc(String comment, String singularText, String pluralText, long n, Object obj1, Object obj2) {
-		return MessageFormat.format(trnc(comment, singularText, pluralText, n), new Object[] { obj1, obj2 });
+		return new MessageFormat(trnc(comment, singularText, pluralText, n), getLocale()).format(new Object[] { obj1, obj2 });
 	}
 	
 	/**
@@ -573,7 +574,7 @@ public class I18n {
 	 * @since 0.9.5
 	 */
 	public final String trnc(String comment, String singularText, String pluralText, long n, Object obj1, Object obj2, Object obj3) {
-		return MessageFormat.format(trnc(comment, singularText, pluralText, n), new Object[] { obj1, obj2, obj3 });
+		return new MessageFormat(trnc(comment, singularText, pluralText, n), getLocale()).format(new Object[] { obj1, obj2, obj3 });
 	}
 	
 	/**
@@ -584,7 +585,7 @@ public class I18n {
 	 * @since 0.9.5
 	 */
 	public final String trnc(String comment, String singularText, String pluralText, long n, Object obj1, Object obj2, Object obj3, Object obj4) {
-		return MessageFormat.format(trnc(comment, singularText, pluralText, n), new Object[] { obj1, obj2, obj3, obj4 });
+		return new MessageFormat(trnc(comment, singularText, pluralText, n), getLocale()).format(new Object[] { obj1, obj2, obj3, obj4 });
 	}
 	
 }

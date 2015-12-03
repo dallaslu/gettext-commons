@@ -38,6 +38,8 @@ public class I18nTest extends TestCase {
 
 	private I18n i18nEN;
 
+	private I18n i18nEN_EMPTY;
+
 	protected void setUp() throws Exception
 	{
 		try {
@@ -48,6 +50,7 @@ public class I18nTest extends TestCase {
 					"Please make sure you run 'mvn org.xnap.commons:maven-gettext-plugin:dist' before executing tests");
 		}
 		i18nEN = new I18n(BASENAME, Locale.ENGLISH, getClass().getClassLoader());
+		i18nEN_EMPTY = new I18n(new EmptyResourceBundle (Locale.ENGLISH));
 	}
 
 	protected void tearDown() throws Exception
@@ -184,6 +187,12 @@ public class I18nTest extends TestCase {
 				.trn("Foo {0} {1} {2} {3}", "Foos", 1, "foo", "bar", "baz", "boing"));
 	}
 
+	public void testTrnEmpty()
+	{
+		assertEquals("Foo", i18nEN_EMPTY.trn("Foo", "Bar", 1));
+		assertEquals("Bar", i18nEN_EMPTY.trn("Foo", "Bar", 2));
+	}
+
 	public void testSetEmptyResources()
 	{
 		// this should load the empty resource bundle
@@ -197,5 +206,10 @@ public class I18nTest extends TestCase {
 
 	public void testTrcReturnsTextWhenTranslationNotFound() {
 		assertEquals("baobab", i18nDE.trc("dont translate to German", "baobab"));
+	}
+
+	public void testNumberLocale() {
+		assertEquals("001.234", i18nEN.tr("{0,number,000.###}", new Double(1.234)));
+		assertEquals("1,23", i18nDE.tr("{0,number,###.##}", new Double(1.234)));
 	}
 }
